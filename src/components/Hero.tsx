@@ -1,0 +1,213 @@
+import { useEffect, useRef, useState } from "react";
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, value));
+
+const interpolate = (
+  t: number,
+  [a, b]: [number, number],
+  [min, max]: [number, number]
+) => {
+  const clamped = clamp((t - a) / (b - a), 0, 1);
+  return min + clamped * (max - min);
+};
+
+interface HeroProps {
+  shouldHide?: boolean;
+}
+
+const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [videoOpacity, setVideoOpacity] = useState(1);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  const [ready, setReady] = useState(false);
+  const yourName = "GREG JOBLOVE";
+
+  useEffect(() => {
+    // Wait one animation frame for layout + transform to apply
+    requestAnimationFrame(() => setReady(true));
+  }, []);
+
+  useEffect(() => {
+    const element = heroRef.current;
+    if (!element) return;
+
+    const heroStart = element.offsetTop;
+    const getHeroHeight = () => element.offsetHeight || window.innerHeight;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const rawProgress = clamp(
+            (window.scrollY - heroStart) / (getHeroHeight() * 0.5),
+            0,
+            1
+          );
+          setScrollProgress(rawProgress);
+          setVideoOpacity(clamp(1 - rawProgress * 1.2, 0, 1));
+          // Sync overlay dot pattern with page background
+          if (overlayRef.current) {
+            overlayRef.current.style.backgroundPosition = `0px ${-window.scrollY}px, 0 0`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Initialize on mount to ensure alignment at initial scroll position
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Track viewport height for responsive translate calculations
+  useEffect(() => {
+    const updateVH = () => setViewportHeight(window.innerHeight || 0);
+    updateVH();
+    window.addEventListener("resize", updateVH);
+    return () => window.removeEventListener("resize", updateVH);
+  }, []);
+
+  // Direct mapping: no easing
+  const progress = scrollProgress;
+
+  // Interpolations
+  const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
+  const subtitleScale = interpolate(progress, [0.2, 0.8], [1, 0.7]);
+  const subtitleTranslateY = interpolate(progress, [0.4, 0.8], [0, -40]);
+
+  const socialTranslateStart = Math.max(0, viewportHeight * 0.3);
+  const socialTranslateEnd = -25;
+  const socialTranslateY = interpolate(
+    progress,
+    [0.4, 1],
+    [socialTranslateStart, socialTranslateEnd]
+  );
+
+  const reelTranslateStart = Math.max(0, viewportHeight * 0.55 + 500);
+  const reelTranslateEnd = 730;
+  const reelTranslateY = interpolate(
+    progress,
+    [0.8, 1],
+    [reelTranslateStart, reelTranslateEnd]
+  );
+
+  const colorValue = Math.round(interpolate(progress, [0, 1], [255, 0]));
+
+  return (
+    <>
+      {/* Hero Video */}
+      <div
+        ref={heroRef}
+        className="hero-sticky"
+        style={{
+          opacity: videoOpacity,
+          pointerEvents: videoOpacity <= 0.02 ? "none" : "auto",
+        }}
+      >
+        <video className="video-hero__video" autoPlay muted loop playsInline>
+          <source
+            src="/vite-react-test/videos/2025_Website-Bumper.webm"
+            type="video/webm"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <div ref={overlayRef} className="video-hero__overlay"></div>
+      </div>
+
+      {/* Title / Subtitle */}
+      <div
+        className="hero-title-container"
+        style={{
+          opacity: shouldHide ? 0 : 1,
+          pointerEvents: shouldHide ? "none" : "auto",
+          transition: "none",
+        }}
+      >
+        <h1
+          className="video-hero__title"
+          style={{
+            transform: `scale(${titleScale})`,
+            color: `rgb(${colorValue}, ${colorValue}, ${colorValue})`,
+            transition: "none",
+          }}
+        >
+          {yourName}
+        </h1>
+        <h2
+          style={{
+            transform: `translateY(${subtitleTranslateY}px) scale(${subtitleScale})`,
+            color: `rgb(${colorValue}, ${colorValue}, ${colorValue})`,
+            transition: "none",
+          }}
+          className="video-hero__subtitle"
+        >
+          vfx/graphics
+        </h2>
+        <h2
+          className="hero-social-links"
+          style={{
+            transform: `translateY(${socialTranslateY}px) scale(${subtitleScale})`,
+            opacity: ready ? (shouldHide ? 0 : 1) : 0,
+            color: `rgb(${colorValue}, ${colorValue}, ${colorValue})`,
+            transition: "none",
+          }}
+        >
+          <a href="mailto:greg@joblove.com">email</a>
+          <a
+            href="https://www.linkedin.com/in/gregjoblove/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            linkedin
+          </a>
+          <a
+            href="https://www.imdb.com/name/nm16396689/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            imdb
+          </a>
+          <a
+            href="https://www.instagram.com/gregjoblove/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            ig
+          </a>
+        </h2>
+      </div>
+      <div
+        id="hero-reel"
+        className="w-[50%] mx-auto"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: `translateX(-50%) translateY(${reelTranslateY}px)`,
+          opacity: ready ? (shouldHide ? 0 : 1) : 0,
+          pointerEvents: shouldHide ? "none" : "auto",
+          transition: "none",
+          zIndex: 30,
+        }}
+      >
+        <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
+          <video className="w-full h-full object-cover" controls muted>
+            <source
+              src="/vite-react-test/videos/2024_General_v7.webm"
+              type="video/webm"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
+      </div>
+    </>
+  );
+};
+
+export default Hero;

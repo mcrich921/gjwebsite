@@ -1,0 +1,51 @@
+# ================================
+# Node dependencies
+# ================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# ================================
+# Build output
+# ================================
+dist/
+build/
+out/
+
+# ================================
+# Environment variables
+# ================================
+.env
+.env.*.local
+!.env.example
+
+# ================================
+# Vite and cache files
+# ================================
+.vite/
+.cache/
+*.tsbuildinfo
+
+# ================================
+# Editor / IDE settings
+# ================================
+.vscode/
+.idea/
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# ================================
+# OS-generated files
+# ================================
+.DS_Store
+Thumbs.db
+
+# ================================
+# Logs
+# ================================
+*.log
+logs/
