@@ -10,6 +10,17 @@ const LOGO_FILE_NAMES: string[] = [
   "GJ_Client-Logos_Pretend.png",
 ];
 
+// Explicit mapping for logo links (edit these to the real links)
+const LOGO_LINKS: Record<string, string> = {
+  "GJ_Client-Logos_Atlantic.png": "https://atlanticpictures.com/",
+  "GJ_Client-Logos_BSF.png": "https://www.youtube.com/@BrightSunFilms",
+  "GJ_Client-Logos_Corduroy.png": "https://corduroy.studio/",
+  "GJ_Client-Logos_Edits-etc.png": "https://www.edits-etc.com/",
+  "GJ_Client-Logos_MAN.png": "https://makeartnow.com/",
+  "GJ_Client-Logos_PO.png": "https://www.publicopinion.nyc/",
+  "GJ_Client-Logos_Pretend.png": "https://pretendvfx.com/",
+};
+
 const BASE_PREFIX = "/vite-react-test";
 
 const LogosCarousel: React.FC = () => {
@@ -18,8 +29,12 @@ const LogosCarousel: React.FC = () => {
   const lastTsRef = useRef<number | null>(null);
   const speedPxPerSec = 30;
 
-  const logoSrcs = useMemo(
-    () => LOGO_FILE_NAMES.map((name) => `${BASE_PREFIX}/logos/${name}`),
+  const logos = useMemo(
+    () =>
+      LOGO_FILE_NAMES.map((name) => ({
+        src: `${BASE_PREFIX}/logos/${name}`,
+        url: LOGO_LINKS[name] ?? "#",
+      })),
     []
   );
 
@@ -60,7 +75,7 @@ const LogosCarousel: React.FC = () => {
     };
   }, []);
 
-  const doubledLogos = useMemo(() => [...logoSrcs, ...logoSrcs], [logoSrcs]);
+  const doubledLogos = useMemo(() => [...logos, ...logos], [logos]);
 
   return (
     <section className="relative max-w-[80%] px-6 md:px-10 py-8 mx-auto">
@@ -74,18 +89,25 @@ const LogosCarousel: React.FC = () => {
           aria-label="Client logos carousel auto-scrolling"
         >
           <div className="flex gap-10 mx-8">
-            {doubledLogos.map((src, idx) => (
+            {doubledLogos.map((logo, idx) => (
               <div
                 key={idx}
                 className="flex-none flex items-center justify-center"
               >
-                <img
-                  src={src}
-                  alt="Client logo"
-                  className="h-10 md:h-12 object-contain grayscale"
-                  loading="lazy"
-                  draggable={false}
-                />
+                <a
+                  href={logo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Client website"
+                >
+                  <img
+                    src={logo.src}
+                    alt="Client logo"
+                    className="h-10 md:h-12 object-contain grayscale"
+                    loading="lazy"
+                    draggable={false}
+                  />
+                </a>
               </div>
             ))}
           </div>
