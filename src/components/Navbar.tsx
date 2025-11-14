@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 
 interface NavbarProps {
   isVisible: boolean;
+  isEnabled: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isVisible }) => {
+const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
   const navVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -45,49 +46,69 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible }) => {
     >
       <ul className="flex flex-col space-y-3 text-left">
         <motion.li variants={itemVariants}>
-          <a
-            href="#projects"
-            onClick={handleScroll("projects")}
-            className="text-lg hover:text-blue-500 transition-colors"
-          >
-            projects
-          </a>
+          {isEnabled ? (
+            <a
+              href="#projects"
+              onClick={handleScroll("projects")}
+              className="text-lg hover:text-blue-500 transition-colors"
+            >
+              projects
+            </a>
+          ) : (
+            <div className="text-lg cursor-default">projects</div>
+          )}
         </motion.li>
         <motion.li variants={itemVariants}>
-          <a
-            href="#reel"
-            onClick={handleScroll("reel")}
-            className="text-lg hover:text-blue-500 transition-colors"
-          >
-            reels
-          </a>
+          {isEnabled ? (
+            <a
+              href="#reel"
+              onClick={handleScroll("reel")}
+              className="text-lg hover:text-blue-500 transition-colors"
+            >
+              reels
+            </a>
+          ) : (
+            <div className="text-lg cursor-default">reels</div>
+          )}
         </motion.li>
         <motion.li variants={itemVariants}>
-          <a
-            href="#about"
-            onClick={handleScroll("about")}
-            className="text-lg hover:text-blue-500 transition-colors"
-          >
-            about
-          </a>
+          {isEnabled ? (
+            <a
+              href="#about"
+              onClick={handleScroll("about")}
+              className="text-lg hover:text-blue-500 transition-colors"
+            >
+              about
+            </a>
+          ) : (
+            <div className="text-lg cursor-default">about</div>
+          )}
         </motion.li>
         <motion.li variants={itemVariants}>
-          <a
-            href="#contact"
-            onClick={handleScroll("contact")}
-            className="text-lg hover:text-blue-500 transition-colors"
-          >
-            contact
-          </a>
+          {isEnabled ? (
+            <a
+              href="#contact"
+              onClick={handleScroll("contact")}
+              className="text-lg hover:text-blue-500 transition-colors"
+            >
+              contact
+            </a>
+          ) : (
+            <div className="text-lg cursor-default">contact</div>
+          )}
         </motion.li>
         <motion.li variants={itemVariants}>
-          <a
-            target="_blank"
-            href="google.com"
-            className="text-lg hover:text-blue-500 transition-colors"
-          >
-            tools
-          </a>
+          {isEnabled ? (
+            <a
+              target="_blank"
+              href="google.com"
+              className="text-lg hover:text-blue-500 transition-colors"
+            >
+              tools
+            </a>
+          ) : (
+            <div className="text-lg cursor-default">tools</div>
+          )}
         </motion.li>
       </ul>
     </motion.nav>

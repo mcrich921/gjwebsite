@@ -8,6 +8,7 @@ import Hero from "./Hero";
 import LogosCarousel from "./LogosCarousel";
 import Reels from "./Reels";
 import AboutSection from "./AboutSection";
+import HorizontalLightbox from "./HorizontalLightbox";
 interface WebsiteContentProps {
   isVisible: boolean;
 }
@@ -88,7 +89,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   return (
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
-      {!selectedProject && hideHero && <Navbar isVisible={hideHero} />}
+      {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
