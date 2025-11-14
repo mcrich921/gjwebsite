@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
             <a
               href="#projects"
               onClick={handleScroll("projects")}
-              className="text-lg hover:text-blue-500 transition-colors"
+              className="text-lg hover:underline transition-colors"
             >
               projects
             </a>
@@ -62,8 +62,8 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
           {isEnabled ? (
             <a
               href="#reel"
-              onClick={handleScroll("reel")}
-              className="text-lg hover:text-blue-500 transition-colors"
+              onClick={handleScroll("reels")}
+              className="text-lg hover:underline transition-colors"
             >
               reels
             </a>
@@ -76,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
             <a
               href="#about"
               onClick={handleScroll("about")}
-              className="text-lg hover:text-blue-500 transition-colors"
+              className="text-lg hover:underline transition-colors"
             >
               about
             </a>
@@ -89,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
             <a
               href="#contact"
               onClick={handleScroll("contact")}
-              className="text-lg hover:text-blue-500 transition-colors"
+              className="text-lg hover:underline transition-colors"
             >
               contact
             </a>
@@ -102,7 +102,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
             <a
               target="_blank"
               href="google.com"
-              className="text-lg hover:text-blue-500 transition-colors"
+              className="text-lg hover:underline transition-colors"
             >
               tools
             </a>
