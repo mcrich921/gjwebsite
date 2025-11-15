@@ -10,6 +10,8 @@ interface ProjectsSectionProps {
   filmProjects?: Project[];
 }
 
+type ProjectCategory = "VFX" | "MoGraph";
+
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   itemVariants,
   onSelectProject,
@@ -17,7 +19,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   filmProjects: passedFilmProjects,
 }) => {
   // track selected categories
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<
+    ProjectCategory[]
+  >(["VFX", "MoGraph"]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,10 +61,23 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     }
   }, [passedFilmProjects]);
 
-  const toggleCategory = (cate: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(cate) ? prev.filter((c) => c !== cate) : [...prev, cate]
-    );
+  const toggleCategory = (category: ProjectCategory) => {
+    setSelectedCategories((prev) => {
+      let updated: ProjectCategory[];
+      if (prev.includes(category)) {
+        updated = prev.filter((c) => c !== category);
+        if (updated.length === 0) {
+          const allCategories: ProjectCategory[] = ["VFX", "MoGraph"];
+          const other = allCategories.find(
+            (c) => c !== category
+          ) as ProjectCategory;
+          updated = [other];
+        }
+      } else {
+        updated = [...prev, category];
+      }
+      return updated;
+    });
   };
 
   const handleProjectClick = (project: Project) => {
@@ -73,7 +90,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const filteredProjects =
     selectedCategories.length > 0
       ? projects.filter(
-          (p) => p.category && selectedCategories.includes(p.category)
+          (p) =>
+            p.category &&
+            selectedCategories.includes(p.category as ProjectCategory)
         )
       : projects;
 
@@ -86,11 +105,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <h2 className="text-6xl font-normal">work</h2>
         <a
           href="/vite-react-test/gjresume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          download
           className="text-sm text-gray-500 underline italic"
         >
-          resume
+          download cv
         </a>
       </div>
 

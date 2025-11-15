@@ -8,6 +8,8 @@ import Hero from "./Hero";
 import LogosCarousel from "./LogosCarousel";
 import Reels from "./Reels";
 import AboutSection from "./AboutSection";
+import Monogram from "./Monogram";
+
 interface WebsiteContentProps {
   isVisible: boolean;
 }
@@ -88,7 +90,8 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   return (
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
-      {!selectedProject && hideHero && <Navbar isVisible={hideHero} />}
+      {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
+      <Monogram isVisible={hideHero} />
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
@@ -163,6 +166,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         <div className="h-20" />
 
         {/* Reels Section */}
+        <div id="reels"></div>
         <Reels />
 
         <AboutSection />
