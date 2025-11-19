@@ -66,7 +66,7 @@ const AboutSection: React.FC = () => (
               <li>
                 <a
                   className="underline"
-                  href="#"
+                  href="https://www.insta360.com/blog/creator-stories/insta360-vfx-reality-capture.html"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -76,7 +76,7 @@ const AboutSection: React.FC = () => (
               <li>
                 <a
                   className="underline"
-                  href="#"
+                  href="https://www.wesleyan.edu/about/news/2025/02/mag-words-music-and-ai-inside-wesleyans-music-video-production-course.html"
                   target="_blank"
                   rel="noreferrer"
                 >
