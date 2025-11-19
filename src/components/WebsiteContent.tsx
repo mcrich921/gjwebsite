@@ -91,7 +91,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
       {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
-      <Monogram isVisible={hideHero} />
+      {hideHero && <Monogram isVisible={hideHero} />}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
