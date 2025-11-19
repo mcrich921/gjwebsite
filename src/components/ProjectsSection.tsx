@@ -1,9 +1,7 @@
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Project, parseProjects } from "../utils/projectParse";
 
 interface ProjectsSectionProps {
-  variants: any;
   itemVariants: any;
   onSelectProject?: (project: Project) => void;
   projects?: Project[];
@@ -13,7 +11,6 @@ interface ProjectsSectionProps {
 type ProjectCategory = "VFX" | "MoGraph";
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({
-  itemVariants,
   onSelectProject,
   projects: passedProjects,
   filmProjects: passedFilmProjects,
@@ -147,11 +144,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
         <div className="flex flex-wrap justify-center">
           {filteredProjects.map((project, idx) => (
-            <motion.div
+            <div
               key={idx}
-              variants={itemVariants}
-              whileHover={{ opacity: 0.7 }}
-              className="cursor-pointer inline-block mx-6 text-xl font-normal my-4"
+              className="cursor-pointer inline-block mx-6 text-xl font-normal my-4 hover:opacity-70"
               onClick={() => handleProjectClick(project)}
             >
               {project.name}
@@ -165,7 +160,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -176,11 +171,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
         <div className="flex flex-wrap justify-center">
           {filmProjects.map((project, idx) => (
-            <motion.div
+            <div
               key={idx}
-              variants={itemVariants}
-              whileHover={{ opacity: 0.7 }}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2"
+              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 hover:opacity-70"
               onClick={() => handleProjectClick(project)}
             >
               {project.name}
@@ -194,7 +187,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

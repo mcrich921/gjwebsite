@@ -153,7 +153,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
 
         {/* Projects Section */}
         <ProjectsSection
-          variants={itemVariants}
           itemVariants={itemVariants}
           onSelectProject={setSelectedProject}
           projects={projects}

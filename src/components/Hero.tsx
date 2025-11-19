@@ -159,7 +159,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
         >
           <a href="mailto:greg@joblove.com">email</a>
           <a
-            href="https://www.linkedin.com/in/gregjoblove/"
+            href="https://www.linkedin.com/in/joblove/"
             target="_blank"
             rel="noreferrer"
           >
