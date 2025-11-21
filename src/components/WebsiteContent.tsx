@@ -20,7 +20,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
-
   // Fetch all projects on component mount
   useEffect(() => {
     parseProjects("/vite-react-test/gjprojects.csv")
@@ -96,7 +95,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
 
-      <div className="h-120" />
       {/* Main content container */}
       <motion.div
         variants={containerVariants}
