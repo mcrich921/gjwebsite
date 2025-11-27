@@ -19,14 +19,19 @@ const Reels: React.FC = () => (
             </video>
           </div>
         </div>
-        <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
-          <video className="w-full h-full object-cover" controls muted>
-            <source
-              src="/vite-react-test/videos/2025_MoGraph_v1.webm"
-              type="video/webm"
-            />
-            Your browser does not support the video tag.
-          </video>
+        <div className="relative">
+          <span className="absolute -top-6 left-1 text-xl font-bold">
+            MOGRAPH
+          </span>
+          <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
+            <video className="w-full h-full object-cover" controls muted>
+              <source
+                src="/vite-react-test/videos/2025_MoGraph_v1.webm"
+                type="video/webm"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
     </div>

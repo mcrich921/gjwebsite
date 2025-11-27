@@ -12,7 +12,7 @@ const LOGO_FILE_NAMES: string[] = [
 
 // Explicit mapping for logo links (edit these to the real links)
 const LOGO_LINKS: Record<string, string> = {
-  "GJ_Client-Logos_Atlantic.png": "https://atlanticpictures.com/",
+  "GJ_Client-Logos_Atlantic.png": "https://atlanticpictures.com/atlantic-vfx",
   "GJ_Client-Logos_BSF.png": "https://www.youtube.com/@BrightSunFilms",
   "GJ_Client-Logos_Corduroy.png": "https://corduroy.studio/",
   "GJ_Client-Logos_Edits-etc.png": "https://www.edits-etc.com/",

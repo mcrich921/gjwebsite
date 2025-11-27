@@ -14,6 +14,7 @@ const interpolate = (
 
 interface HeroProps {
   shouldHide?: boolean;
+  scrollOffset?: number;
 }
 
 const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
@@ -74,6 +75,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
 
   // Direct mapping: no easing
   const progress = scrollProgress;
+  console.log("progress", progress);
 
   // Interpolations
   const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
@@ -84,15 +86,15 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
   const socialTranslateEnd = -25;
   const socialTranslateY = interpolate(
     progress,
-    [0.4, 1],
+    [0.4, 0.8],
     [socialTranslateStart, socialTranslateEnd]
   );
 
-  const reelTranslateStart = Math.max(0, viewportHeight * 0.55 + 500);
-  const reelTranslateEnd = 730;
+  const reelTranslateStart = Math.max(0, viewportHeight * 0.55);
+  const reelTranslateEnd = 0;
   const reelTranslateY = interpolate(
     progress,
-    [0.8, 1],
+    [0.7, 1.0],
     [reelTranslateStart, reelTranslateEnd]
   );
 
@@ -159,7 +161,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
         >
           <a href="mailto:greg@joblove.com">email</a>
           <a
-            href="https://www.linkedin.com/in/gregjoblove/"
+            href="https://www.linkedin.com/in/joblove/"
             target="_blank"
             rel="noreferrer"
           >
@@ -180,31 +182,28 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
             ig
           </a>
         </h2>
-      </div>
-      <div
-        id="hero-reel"
-        className="w-[50%] mx-auto"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          transform: `translateX(-50%) translateY(${reelTranslateY}px)`,
-          opacity: ready ? (shouldHide ? 0 : 1) : 0,
-          pointerEvents: shouldHide ? "none" : "auto",
-          transition: "none",
-          zIndex: 30,
-        }}
-      >
-        <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-          <video className="w-full h-full object-cover" controls muted>
-            <source
-              src="/vite-react-test/videos/2024_General_v7.webm"
-              type="video/webm"
-            />
-            Your browser does not support the video tag.
-          </video>
+        <div
+          id="hero-reel"
+          className="w-[50%] mx-auto"
+          style={{
+            transform: `translateY(${reelTranslateY}px)`,
+            opacity: ready ? (shouldHide ? 0 : 1) : 0,
+            pointerEvents: shouldHide ? "none" : "auto",
+            transition: "none",
+            zIndex: 30,
+          }}
+        >
+          <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
+            <video className="w-full h-full object-cover" controls muted>
+              <source
+                src="/vite-react-test/videos/2024_General_v7.webm"
+                type="video/webm"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
         </div>
-        <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
       </div>
     </>
   );

@@ -20,7 +20,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
-
   // Fetch all projects on component mount
   useEffect(() => {
     parseProjects("/vite-react-test/gjprojects.csv")
@@ -91,12 +90,11 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
       {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
-      <Monogram isVisible={hideHero} />
+      {hideHero && <Monogram isVisible={hideHero} />}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
 
-      <div className="h-120" />
       {/* Main content container */}
       <motion.div
         variants={containerVariants}
@@ -153,7 +151,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
 
         {/* Projects Section */}
         <ProjectsSection
-          variants={itemVariants}
           itemVariants={itemVariants}
           onSelectProject={setSelectedProject}
           projects={projects}
