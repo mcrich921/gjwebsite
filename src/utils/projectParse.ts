@@ -16,6 +16,8 @@ export interface Project {
   mediaAspect: string;
   linkFeature: boolean;
   link: string;
+  coverMedia: "embed" | "image";
+  coverEmbedOrImage: string;
 }
 
 export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
@@ -63,6 +65,15 @@ export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
               mediaAspect: row.media_aspect || "",
               linkFeature: row.link_feature === "TRUE",
               link: row.link || "",
+              coverMedia: ((
+                (row.cover_media as string) || "image"
+              ).toLowerCase() === "embed"
+                ? "embed"
+                : "image") as "embed" | "image",
+              coverEmbedOrImage:
+                (row["cover_embed-or-image"] as string) ||
+                (row.cover_embed_or_image as string) ||
+                "",
             }))
             .filter((project) => project.visible);
           resolve(projects);

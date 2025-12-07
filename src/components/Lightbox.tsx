@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Project } from "../utils/projectParse";
 
@@ -68,11 +68,7 @@ const Lightbox: React.FC<LightboxProps> = ({
   const media: Media[] = [];
 
   if (project.mediaPaths) {
-    console.log(project.shorthand, project.mediaPaths);
-    // Add image from mediaPath
-
     project.mediaPaths.forEach((path) => {
-      console.log(path);
       if (path.includes("webm")) {
         media.push({
           type: "video",
@@ -87,6 +83,60 @@ const Lightbox: React.FC<LightboxProps> = ({
     });
   }
 
+  // If cover is an Instagram (or other) embed, ensure embed script is loaded and processed
+  const embedContainerRef = useRef<HTMLDivElement | null>(null);
+  const sanitizedEmbedHtml = useMemo(() => {
+    if (project.coverMedia !== "embed" || !project.coverEmbedOrImage) return "";
+    // Remove any <script> tags to avoid confusion; we will load/process SDK ourselves
+    const withoutScripts = project.coverEmbedOrImage.replace(
+      /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
+      ""
+    );
+    return withoutScripts.trim();
+  }, [project.coverMedia, project.coverEmbedOrImage]);
+
+  // Attempt to extract the Instagram permalink for fallback link display
+  const instagramPermalink = useMemo(() => {
+    if (!sanitizedEmbedHtml) return "";
+    const anchorMatch = sanitizedEmbedHtml.match(/href="([^"]+)"/i);
+    return anchorMatch ? anchorMatch[1] : "";
+  }, [sanitizedEmbedHtml]);
+
+  useEffect(() => {
+    if (project.coverMedia !== "embed" || !sanitizedEmbedHtml) return;
+
+    const processEmbeds = () => {
+      const inst = (window as any).instgrm;
+      if (inst && inst.Embeds && typeof inst.Embeds.process === "function") {
+        // Scope processing to our container to be safe
+        inst.Embeds.process(embedContainerRef.current || undefined);
+      }
+    };
+
+    const existing = document.querySelector(
+      'script[src*="instagram.com/embed.js"]'
+    ) as HTMLScriptElement | null;
+
+    if (!existing) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.instagram.com/embed.js";
+      script.onload = () => {
+        // Process embeds once SDK is ready
+        processEmbeds();
+        // Retry processing in case first pass occurs before layout stabilizes
+        setTimeout(processEmbeds, 250);
+        setTimeout(processEmbeds, 1000);
+      };
+      document.body.appendChild(script);
+    } else {
+      // If script tag exists, try processing (may already be initialized)
+      setTimeout(processEmbeds, 50);
+      setTimeout(processEmbeds, 250);
+      setTimeout(processEmbeds, 1000);
+    }
+  }, [project.coverMedia, sanitizedEmbedHtml]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -100,7 +150,7 @@ const Lightbox: React.FC<LightboxProps> = ({
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
-        className="bg-white border-3 border-black w-[1000px] h-[80vh] overflow-hidden relative flex flex-col"
+        className="bg-white border-3 border-black w-[1000px] max-h-[80vh] overflow-hidden relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Navigation header - fixed at top */}
@@ -149,7 +199,16 @@ const Lightbox: React.FC<LightboxProps> = ({
             {/* Left Column - Media */}
             <div>
               <div className="aspect-[2/3] mb-4">
-                {media.length > 0 ? (
+                {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
+                  <div
+                    key={project.shorthand}
+                    ref={embedContainerRef}
+                    className="w-full h-full"
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizedEmbedHtml,
+                    }}
+                  />
+                ) : media.length > 0 ? (
                   media[0].type === "video" ? (
                     <video
                       className="w-full h-full object-cover"
@@ -171,7 +230,18 @@ const Lightbox: React.FC<LightboxProps> = ({
                   )
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    No media available
+                    {project.coverMedia === "embed" && instagramPermalink ? (
+                      <a
+                        href={instagramPermalink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                      >
+                        View this post on Instagram
+                      </a>
+                    ) : (
+                      "No media available"
+                    )}
                   </div>
                 )}
               </div>
