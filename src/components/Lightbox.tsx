@@ -73,15 +73,17 @@ const Lightbox: React.FC<LightboxProps> = ({
 
     project.mediaPaths.forEach((path) => {
       console.log(path);
-      media.push({
-        type: "image",
-        url: `/vite-react-test/images/${path}`,
-      });
-    });
-
-    media.push({
-      type: "video",
-      url: "/vite-react-test/videos/BabyGirl_Reel.webm",
+      if (path.includes("webm")) {
+        media.push({
+          type: "video",
+          url: `/vite-react-test/videos/${path}`,
+        });
+      } else {
+        media.push({
+          type: "image",
+          url: `/vite-react-test/images/${path}`,
+        });
+      }
     });
   }
 
@@ -151,10 +153,13 @@ const Lightbox: React.FC<LightboxProps> = ({
                   media[0].type === "video" ? (
                     <video
                       className="w-full h-full object-cover"
-                      controls
                       autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls
                     >
-                      <source src={media[0].url} type="video/mp4" />
+                      <source src={media[0].url} type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
@@ -250,8 +255,14 @@ const Lightbox: React.FC<LightboxProps> = ({
               {media.slice(1).map((mediaItem, index) => (
                 <div key={index} className="aspect-video w-full">
                   {mediaItem.type === "video" ? (
-                    <video className="w-full h-full object-cover" controls>
-                      <source src={mediaItem.url} type="video/mp4" />
+                    <video
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src={mediaItem.url} type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
