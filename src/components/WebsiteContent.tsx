@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Lightbox from "./Lightbox";
+import HorizontalLightbox from "./HorizontalLightbox";
 import Navbar from "./Navbar";
 import ProjectsSection from "./ProjectsSection";
 import { Project, parseProjects } from "../utils/projectParse";
@@ -148,7 +149,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
           </motion.section>
         </div>
-
         {/* Projects Section */}
         <ProjectsSection
           itemVariants={itemVariants}
@@ -156,32 +156,41 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           projects={projects}
           filmProjects={filmProjects}
         />
-
         {/* Client Logos Carousel */}
         <LogosCarousel />
-
         <div className="h-20" />
-
         {/* Reels Section */}
         <div id="reels"></div>
         <Reels />
-
         <AboutSection />
-
         {/* Lightbox */}
-        {selectedProject && (
-          <Lightbox
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-            allProjects={
-              selectedProject &&
-              projects.some((p) => p.shorthand === selectedProject.shorthand)
-                ? projects
-                : filmProjects
-            }
-            onNavigate={setSelectedProject}
-          />
-        )}
+
+        {selectedProject &&
+          (selectedProject.mediaAspect === "h" ? (
+            <HorizontalLightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={
+                selectedProject &&
+                projects.some((p) => p.shorthand === selectedProject.shorthand)
+                  ? projects
+                  : filmProjects
+              }
+              onNavigate={setSelectedProject}
+            />
+          ) : (
+            <Lightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={
+                selectedProject &&
+                projects.some((p) => p.shorthand === selectedProject.shorthand)
+                  ? projects
+                  : filmProjects
+              }
+              onNavigate={setSelectedProject}
+            />
+          ))}
       </motion.div>
     </div>
   );
