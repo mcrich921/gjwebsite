@@ -75,7 +75,7 @@ export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
                 (row.cover_embed_or_image as string) ||
                 "",
             }))
-            .filter((project) => project.visible);
+            .filter((project) => project.visible && project.name !== "");
           resolve(projects);
         },
         error: (error: Error) => reject(error),
