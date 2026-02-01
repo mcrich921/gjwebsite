@@ -54,6 +54,7 @@ export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
                     .split(",")
                     .map((path: string) => path.trim())
                     .filter((path: string) => path !== "")
+                    .map((path:string) => `projects/${path}`)
                 : null,
               mediaFeature: row.media_feature === "TRUE",
               visible: row.visible === "TRUE",

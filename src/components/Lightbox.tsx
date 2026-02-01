@@ -72,12 +72,12 @@ const Lightbox: React.FC<LightboxProps> = ({
       if (path.includes("webm")) {
         media.push({
           type: "video",
-          url: `/vite-react-test/videos/${path}`,
+          url: `https://media.gregjoblove.com/${path}`,
         });
       } else {
         media.push({
           type: "image",
-          url: `/vite-react-test/images/${path}`,
+          url: `https://media.gregjoblove.com/${path}`,
         });
       }
     });
