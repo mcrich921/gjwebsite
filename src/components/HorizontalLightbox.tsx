@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Project } from "../utils/projectParse";
+
+const MEDIA_BASE_URL = "https://media.gregjoblove.com";
 
 interface Media {
   type: "image" | "video";
@@ -68,22 +70,74 @@ const Lightbox: React.FC<LightboxProps> = ({
   const media: Media[] = [];
 
   if (project.mediaPaths) {
-    console.log(project.shorthand, project.mediaPaths);
-    // Add image from mediaPath
-
     project.mediaPaths.forEach((path) => {
-      console.log(path);
-      media.push({
-        type: "image",
-        url: `/vite-react-test/images/${path}`,
-      });
-    });
-
-    media.push({
-      type: "video",
-      url: "/vite-react-test/videos/BabyGirl_Reel.webm",
+      if (path.includes("webm")) {
+        media.push({
+          type: "video",
+          url: `${MEDIA_BASE_URL}/${path}`,
+        });
+      } else {
+        media.push({
+          type: "image",
+          url: `${MEDIA_BASE_URL}/${path}`,
+        });
+      }
     });
   }
+
+  // If cover is an Instagram (or other) embed, ensure embed script is loaded and processed
+  const embedContainerRef = useRef<HTMLDivElement | null>(null);
+  const sanitizedEmbedHtml = useMemo(() => {
+    if (project.coverMedia !== "embed" || !project.coverEmbedOrImage) return "";
+    // Remove any <script> tags to avoid confusion; we will load/process SDK ourselves
+    const withoutScripts = project.coverEmbedOrImage.replace(
+      /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
+      ""
+    );
+    return withoutScripts.trim();
+  }, [project.coverMedia, project.coverEmbedOrImage]);
+
+  // Attempt to extract the Instagram permalink for fallback link display
+  const instagramPermalink = useMemo(() => {
+    if (!sanitizedEmbedHtml) return "";
+    const anchorMatch = sanitizedEmbedHtml.match(/href="([^"]+)"/i);
+    return anchorMatch ? anchorMatch[1] : "";
+  }, [sanitizedEmbedHtml]);
+
+  useEffect(() => {
+    if (project.coverMedia !== "embed" || !sanitizedEmbedHtml) return;
+
+    const processEmbeds = () => {
+      const inst = (window as any).instgrm;
+      if (inst && inst.Embeds && typeof inst.Embeds.process === "function") {
+        // Scope processing to our container to be safe
+        inst.Embeds.process(embedContainerRef.current || undefined);
+      }
+    };
+
+    const existing = document.querySelector(
+      'script[src*="instagram.com/embed.js"]'
+    ) as HTMLScriptElement | null;
+
+    if (!existing) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.instagram.com/embed.js";
+      script.onload = () => {
+        // Process embeds once SDK is ready
+        processEmbeds();
+        // Retry processing in case first pass occurs before layout stabilizes
+        setTimeout(processEmbeds, 250);
+        setTimeout(processEmbeds, 1000);
+      };
+      document.body.appendChild(script);
+    } else {
+      // If script tag exists, try processing (may already be initialized)
+      setTimeout(processEmbeds, 50);
+      setTimeout(processEmbeds, 250);
+      setTimeout(processEmbeds, 1000);
+    }
+  }, [project.coverMedia, sanitizedEmbedHtml]);
 
   return (
     <motion.div
@@ -145,14 +199,26 @@ const Lightbox: React.FC<LightboxProps> = ({
         >
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
             {/* Left Column - Media */}
-            <div>
-              <div className="aspect-video mb-4">
-                {media.length > 0 ? (
+            <div className="h-full flex items-center justify-center">
+              <div className={`${project.coverMedia === "embed" ? "max-h-[400px]" : "aspect-video w-full"} mb-4 overflow-hidden`}>
+                {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
+                  <div
+                    key={project.shorthand}
+                    ref={embedContainerRef}
+                    className="w-full h-full [&_iframe]:!max-w-full [&_iframe]:!w-full"
+                    style={{ maxWidth: "100%" }}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizedEmbedHtml,
+                    }}
+                  />
+                ) : media.length > 0 ? (
                   media[0].type === "video" ? (
                     <video
                       className="w-full h-full object-cover"
-                      controls
+                      controls={false}
                       autoPlay
+                      muted
+                      loop
                     >
                       <source src={media[0].url} type="video/mp4" />
                       Your browser does not support the video tag.
@@ -166,7 +232,18 @@ const Lightbox: React.FC<LightboxProps> = ({
                   )
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    No media available
+                    {project.coverMedia === "embed" && instagramPermalink ? (
+                      <a
+                        href={instagramPermalink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                      >
+                        View this post on Instagram
+                      </a>
+                    ) : (
+                      "No media available"
+                    )}
                   </div>
                 )}
               </div>
@@ -252,10 +329,10 @@ const Lightbox: React.FC<LightboxProps> = ({
           {media.length > 1 && (
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
               {media.slice(1).map((mediaItem, index) => (
-                <div key={index} className="aspect-video w-full">
+                <div key={index} className="aspect-video w-full overflow-hidden">
                   {mediaItem.type === "video" ? (
-                    <video className="w-full h-full object-cover" controls>
-                      <source src={mediaItem.url} type="video/mp4" />
+                    <video className="w-full h-full object-contain" controls={false} muted loop autoPlay>
+                      <source src={mediaItem.url} type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
