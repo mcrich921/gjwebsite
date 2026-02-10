@@ -1,5 +1,7 @@
 import React from "react";
 
+const MEDIA_BASE_URL = "https://media.gregjoblove.com";
+
 const Reels: React.FC = () => (
   <div>
     <div className="flex flex-col items-center mb-8 gap-2">
@@ -12,7 +14,7 @@ const Reels: React.FC = () => (
           <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
             <video className="w-full h-full object-cover" controls muted>
               <source
-                src="/vite-react-test/videos/2024_General_v7.webm"
+                src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}
                 type="video/webm"
               />
               Your browser does not support the video tag.
@@ -26,7 +28,7 @@ const Reels: React.FC = () => (
           <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
             <video className="w-full h-full object-cover" controls muted>
               <source
-                src="/vite-react-test/videos/2025_MoGraph_v1.webm"
+                src={`${MEDIA_BASE_URL}/reels/2025_MoGraph_v1.webm`}
                 type="video/webm"
               />
               Your browser does not support the video tag.

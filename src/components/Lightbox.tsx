@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Project } from "../utils/projectParse";
 
+const MEDIA_BASE_URL = "https://media.gregjoblove.com";
+
 interface Media {
   type: "image" | "video";
   url: string;
@@ -72,12 +74,12 @@ const Lightbox: React.FC<LightboxProps> = ({
       if (path.includes("webm")) {
         media.push({
           type: "video",
-          url: `https://media.gregjoblove.com/${path}`,
+          url: `${MEDIA_BASE_URL}/${path}`,
         });
       } else {
         media.push({
           type: "image",
-          url: `https://media.gregjoblove.com/${path}`,
+          url: `${MEDIA_BASE_URL}/${path}`,
         });
       }
     });

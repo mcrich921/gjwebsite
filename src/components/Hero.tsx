@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+const MEDIA_BASE_URL = "https://media.gregjoblove.com";
+
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(max, value));
 
@@ -14,7 +16,6 @@ const interpolate = (
 
 interface HeroProps {
   shouldHide?: boolean;
-  scrollOffset?: number;
 }
 
 const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
@@ -113,7 +114,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
       >
         <video className="video-hero__video" autoPlay muted loop playsInline>
           <source
-            src="/vite-react-test/videos/2025_Website-Bumper.webm"
+            src={`${MEDIA_BASE_URL}/reels/2025_Website-Bumper.webm`}
             type="video/webm"
           />
           Your browser does not support the video tag.
@@ -196,7 +197,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
           <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
             <video className="w-full h-full object-cover" controls muted>
               <source
-                src="/vite-react-test/videos/2024_General_v7.webm"
+                src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}
                 type="video/webm"
               />
               Your browser does not support the video tag.
