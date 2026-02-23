@@ -15,16 +15,11 @@ const AboutSection: React.FC = () => (
         {/* Main copy */}
         <div className="md:col-span-5">
           <p className="text-xl leading-8 text-left">
-            I’m Greg! I’m a filmmaker, visual effects artist, and overall visual
-            storyteller.
-            <span className="bg-black text-white px-1">
-              I’ve discovered my love for using tools and technology to tell
-              stories and now can’t really stop.
-            </span>
-            I have professional experience working in VFX studios, on set, and
-            in freelance capacities. I’ve worked on feature films, television,
-            music videos, commercial work, and YouTube content. Reach out if you
-            have a project in mind, looking forward to hearing from you!
+          I am a filmmaker and visual effects artist based in Brooklyn, NY,
+          specializing in compositing, 3D animation, and motion graphics.
+          With a background in cinematography, editing, and photography,
+          I have honed my skills for pushing technology while leveraging
+          classic theory to bring new visuals to life.
           </p>
 
           <div className="mt-6 text-left">

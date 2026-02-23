@@ -146,7 +146,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
                 Your browser does not support the video tag.
               </video>
             </div>
-            <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
+            <h2 className="text-lg font-bold text-left ml-2">2026 REEL</h2>
           </motion.section>
         </div>
         {/* Projects Section */}

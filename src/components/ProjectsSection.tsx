@@ -102,10 +102,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <h2 className="text-6xl font-normal">work</h2>
         <a
           href="/vite-react-test/gjresume.pdf"
-          download
+          target="_blank"
+          rel="noreferrer"
           className="text-sm text-gray-500 underline italic"
         >
-          download cv
+          view cv
         </a>
       </div>
 
@@ -146,17 +147,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {filteredProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-6 text-xl font-normal my-4 hover:opacity-70"
+              className="cursor-pointer inline-block mx-6 text-xl font-normal my-4 px-1 py-1"
               onClick={() => handleProjectClick(project)}
             >
-              {project.name}
-              {/* {project.credits.find((credit) => credit.credit === "Client")
-                ? ` (${
-                    project.credits.find((credit) => credit.credit === "Client")
-                      ?.person
-                  })`
-                : ""} */}
-              {project.subtitle ? ` (${project.subtitle})` : ""}
+              <span className="hover:bg-black hover:text-white py-0">{project.name}
+              {project.subtitle ? ` (${project.subtitle})` : ""}</span>
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
@@ -173,16 +168,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {filmProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 hover:opacity-70"
+              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1 hover:text-white hover:bg-black"
               onClick={() => handleProjectClick(project)}
             >
               {project.name}
-              {/* {project.credits.find((credit) => credit.credit === "Client")
-                ? ` (${
-                    project.credits.find((credit) => credit.credit === "Client")
-                      ?.person
-                  })`
-                : ""} */}
               {project.subtitle ? ` (${project.subtitle})` : ""}
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
