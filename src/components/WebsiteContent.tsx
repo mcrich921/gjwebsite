@@ -41,7 +41,10 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
 
-  // Detect when the content title container aligns with the hero title container top
+  // Detect when the content title container aligns with the hero title container top.
+  // Only hide hero after user has scrolled past a threshold so resize at top of page doesn't flicker.
+  const SCROLL_THRESHOLD_PX = 80;
+
   useEffect(() => {
     const handle = () => {
       const contentEl = titleContainerRef.current;
@@ -51,16 +54,21 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       if (!contentEl) return;
       const contentTop = contentEl.getBoundingClientRect().top;
       const heroTop = heroEl ? heroEl.getBoundingClientRect().top : 0; // fallback
-      // Hide when content title container's top reaches or crosses hero title container's top
-      setHideHero(contentTop <= heroTop);
+      const aligned = contentTop <= heroTop;
+      // Require scroll past threshold so we don't hide hero when user is still "on" the hero (avoids resize flicker)
+      setHideHero(aligned && window.scrollY > SCROLL_THRESHOLD_PX);
+    };
+
+    const handleResize = () => {
+      requestAnimationFrame(handle);
     };
 
     handle();
     window.addEventListener("scroll", handle, { passive: true });
-    window.addEventListener("resize", handle);
+    window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("scroll", handle as EventListener);
-      window.removeEventListener("resize", handle as EventListener);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

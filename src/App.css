@@ -65,7 +65,8 @@
 .video-hero__title {
   color: #ffffff;
   text-align: center;
-  font-size: 100px;
+  font-size: clamp(40px, 9vw, 100px);
+  white-space: nowrap;
   transition: none;
 }
 
@@ -82,13 +83,14 @@
 }
 
 .title {
-  font-size: 100px;
+  font-size: clamp(40px, 9vw, 100px);
+  white-space: nowrap;
   color: black;
   text-align: center;
 }
 
 .subtitle {
-  font-size: 30px;
+  font-size: clamp(12px, 2.7vw, 30px);
   font-weight: bold;
   color: black;
   text-align: center;
@@ -130,7 +132,7 @@
 }
 
 .video-hero__subtitle {
-  font-size: 30px;
+  font-size: clamp(12px, 2.7vw, 30px);
   font-weight: bold;
   color: #ffffff;
   text-align: center;
