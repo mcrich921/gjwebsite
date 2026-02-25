@@ -83,7 +83,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
   const subtitleScale = interpolate(progress, [0.2, 0.8], [1, 0.7]);
   const subtitleTranslateY = interpolate(progress, [0.4, 0.8], [0, -40]);
 
-  const socialTranslateStart = Math.max(0, viewportHeight * 0.3);
+  const socialTranslateStart = Math.max(0, viewportHeight * 0.6 - 280);
   const socialTranslateEnd = -25;
   const socialTranslateY = interpolate(
     progress,
@@ -120,6 +120,27 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
           Your browser does not support the video tag.
         </video>
         <div ref={overlayRef} className="video-hero__overlay"></div>
+        <div
+          className="scroll-indicator"
+          style={{
+            opacity: interpolate(progress, [0, 0.15], [1, 0]),
+            pointerEvents: "none",
+          }}
+        >
+          <svg
+            width="22"
+            height="12"
+            viewBox="0 0 22 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 2L11 10L20 2"
+              stroke="white"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
       </div>
 
       {/* Title / Subtitle */}
