@@ -197,19 +197,17 @@ const Lightbox: React.FC<LightboxProps> = ({
             backgroundSize: "20px 20px",
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[410px_1fr] gap-8 items-center">
             {/* Left Column - Media */}
             <div className="h-full flex items-center justify-center">
-              <div className={`${project.coverMedia === "embed" ? "max-h-[400px]" : "aspect-video w-full"} mb-4 overflow-hidden`}>
+              <div className={`${project.coverMedia === "embed" && sanitizedEmbedHtml.includes("instagram") ? "max-h-[400px]" : "aspect-video w-full relative"} mb-4 overflow-hidden`}>
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
                     key={project.shorthand}
                     ref={embedContainerRef}
-                    className="w-full h-full [&_iframe]:!max-w-full [&_iframe]:!w-full"
+                    className={`w-full h-full ${sanitizedEmbedHtml.includes("instagram") ? "[&_iframe]:!max-w-full [&_iframe]:!w-full" : "[&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full"}`}
                     style={{ maxWidth: "100%" }}
-                    dangerouslySetInnerHTML={{
-                      __html: sanitizedEmbedHtml,
-                    }}
+                    dangerouslySetInnerHTML={{ __html: sanitizedEmbedHtml }}
                   />
                 ) : media.length > 0 ? (
                   media[0].type === "video" ? (
@@ -267,7 +265,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               </div>
 
               {/* Project metadata in a bracket-like design */}
-              <div className="pl-5 mb-6 relative w-[70%]">
+              <div className="pl-5 mb-6 relative w-[80%]">
                 <div className="absolute left-0 top-0 h-5 w-5 border-l border-t border-gray-500 -mt-1"></div>
                 <div className="absolute left-0 bottom-0 h-5 w-5 border-l border-b border-gray-500 -mb-1"></div>
                 <div className="absolute -right-10 top-0 h-5 w-5 border-r border-t border-gray-500 -mt-1"></div>
