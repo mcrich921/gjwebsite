@@ -32,7 +32,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       setProjects(passedProjects);
       setLoading(false);
     } else {
-      parseProjects("/vite-react-test/gjprojects.csv")
+      parseProjects("/gjprojects.csv")
         .then((data) => {
           setProjects(data);
         })
@@ -49,7 +49,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       setFilmProjects(passedFilmProjects);
       setLoading(false);
     } else {
-      parseProjects("/vite-react-test/gjfilm+tv.csv")
+      parseProjects("/gjfilm+tv.csv")
         .then((data) => {
           setFilmProjects(data);
         })
@@ -65,7 +65,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     if (passedExperimentProjects && passedExperimentProjects.length > 0) {
       setExperimentProjects(passedExperimentProjects);
     } else {
-      parseProjects("/vite-react-test/experiments.csv")
+      parseProjects("/experiments.csv")
         .then((data) => {
           setExperimentProjects(data);
         })
@@ -119,7 +119,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       <div className="flex flex-col items-center mb-8 gap-2">
         <h2 className="text-6xl font-normal">work</h2>
         <a
-          href="/vite-react-test/gjresume.pdf"
+          href="/gjresume.pdf"
           target="_blank"
           rel="noreferrer"
           className="text-sm text-gray-500 underline italic"

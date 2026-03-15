@@ -21,8 +21,6 @@ const LOGO_LINKS: Record<string, string> = {
   "GJ_Client-Logos_Pretend.png": "https://pretendvfx.com/",
 };
 
-const BASE_PREFIX = "/vite-react-test";
-
 const LogosCarousel: React.FC = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -32,10 +30,10 @@ const LogosCarousel: React.FC = () => {
   const logos = useMemo(
     () =>
       LOGO_FILE_NAMES.map((name) => ({
-        src: `${BASE_PREFIX}/logos/${name}`,
-        url: LOGO_LINKS[name] ?? "#",
+        src: `logos/${name}`,
+        url: LOGO_LINKS[name],
       })),
-    []
+    [],
   );
 
   useEffect(() => {

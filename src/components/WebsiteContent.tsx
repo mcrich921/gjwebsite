@@ -24,7 +24,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   // Fetch all projects on component mount
   useEffect(() => {
-    parseProjects("/vite-react-test/gjprojects.csv")
+    parseProjects("/gjprojects.csv")
       .then((data) => {
         setProjects(data);
       })
@@ -33,7 +33,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/vite-react-test/gjfilm+tv.csv")
+    parseProjects("/gjfilm+tv.csv")
       .then((data) => {
         setFilmProjects(data);
       })
@@ -42,7 +42,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/vite-react-test/experiments.csv")
+    parseProjects("/experiments.csv")
       .then((data) => {
         setExperimentProjects(data);
       })
@@ -204,10 +204,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
               <video className="w-full h-full object-cover" controls muted>
-                <source
-                  src="/vite-react-test/videos/2024_General_v7.webm"
-                  type="video/webm"
-                />
+                <source src="/videos/2024_General_v7.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             </div>
