@@ -6,6 +6,7 @@ interface ProjectsSectionProps {
   onSelectProject?: (project: Project) => void;
   projects?: Project[];
   filmProjects?: Project[];
+  experimentProjects?: Project[];
 }
 
 type ProjectCategory = "VFX" | "MoGraph";
@@ -14,6 +15,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   onSelectProject,
   projects: passedProjects,
   filmProjects: passedFilmProjects,
+  experimentProjects: passedExperimentProjects,
 }) => {
   // track selected categories
   const [selectedCategories, setSelectedCategories] = useState<
@@ -21,6 +23,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   >(["VFX", "MoGraph"]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
+  const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,6 +61,21 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     }
   }, [passedFilmProjects]);
 
+  useEffect(() => {
+    if (passedExperimentProjects && passedExperimentProjects.length > 0) {
+      setExperimentProjects(passedExperimentProjects);
+    } else {
+      parseProjects("/vite-react-test/experiments.csv")
+        .then((data) => {
+          setExperimentProjects(data);
+        })
+        .catch((err) => {
+          console.error("Error parsing experiments:", err);
+          setError(err.message);
+        });
+    }
+  }, [passedExperimentProjects]);
+
   const toggleCategory = (category: ProjectCategory) => {
     setSelectedCategories((prev) => {
       let updated: ProjectCategory[];
@@ -66,7 +84,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         if (updated.length === 0) {
           const allCategories: ProjectCategory[] = ["VFX", "MoGraph"];
           const other = allCategories.find(
-            (c) => c !== category
+            (c) => c !== category,
           ) as ProjectCategory;
           updated = [other];
         }
@@ -89,7 +107,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       ? projects.filter(
           (p) =>
             p.category &&
-            selectedCategories.includes(p.category as ProjectCategory)
+            selectedCategories.includes(p.category as ProjectCategory),
         )
       : projects;
 
@@ -150,8 +168,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               className="cursor-pointer inline-block mx-6 text-xl font-normal my-4 px-1 py-1"
               onClick={() => handleProjectClick(project)}
             >
-              <span className="hover:bg-black hover:text-white py-0">{project.name}
-              {project.subtitle ? ` (${project.subtitle})` : ""}</span>
+              <span className="hover:bg-black hover:text-white py-0">
+                {project.name}
+                {project.subtitle ? ` (${project.subtitle})` : ""}
+              </span>
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
@@ -176,6 +196,29 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Experiments list */}
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] mx-auto">
+        <h3 className="italic text-4xl mb-4 text-left">experiments</h3>
+
+        <div className="flex flex-wrap justify-center">
+          {experimentProjects.map((project, idx) => (
+            <div
+              key={idx}
+              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1 hover:text-white hover:bg-black"
+              onClick={() => handleProjectClick(project)}
+            >
+              {project.name}
+              {project.subtitle ? ` (${project.subtitle})` : ""}
+              {project.year ? (
+                <sup className="align-super text-sm ml-1">
+                  {project.year.slice(-4)}
+                </sup>
+              ) : null}
             </div>
           ))}
         </div>

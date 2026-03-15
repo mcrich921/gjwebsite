@@ -19,6 +19,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
+  const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   // Fetch all projects on component mount
@@ -38,6 +39,15 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       })
       .catch((err) => {
         console.error("Error parsing projects:", err);
+      });
+  }, []);
+  useEffect(() => {
+    parseProjects("/vite-react-test/experiments.csv")
+      .then((data) => {
+        setExperimentProjects(data);
+      })
+      .catch((err) => {
+        console.error("Error parsing experiments:", err);
       });
   }, []);
 
@@ -114,9 +124,16 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             onClose={() => setSelectedProject(null)}
             allProjects={
               selectedProject &&
-              projects.some((p) => p.shorthand === selectedProject.shorthand)
-                ? projects
-                : filmProjects
+              experimentProjects.some(
+                (p) => p.shorthand === selectedProject.shorthand,
+              )
+                ? experimentProjects
+                : selectedProject &&
+                    filmProjects.some(
+                      (p) => p.shorthand === selectedProject.shorthand,
+                    )
+                  ? filmProjects
+                  : projects
             }
             onNavigate={setSelectedProject}
           />
@@ -126,9 +143,16 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             onClose={() => setSelectedProject(null)}
             allProjects={
               selectedProject &&
-              projects.some((p) => p.shorthand === selectedProject.shorthand)
-                ? projects
-                : filmProjects
+              experimentProjects.some(
+                (p) => p.shorthand === selectedProject.shorthand,
+              )
+                ? experimentProjects
+                : selectedProject &&
+                    filmProjects.some(
+                      (p) => p.shorthand === selectedProject.shorthand,
+                    )
+                  ? filmProjects
+                  : projects
             }
             onNavigate={setSelectedProject}
           />
@@ -196,6 +220,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           onSelectProject={setSelectedProject}
           projects={projects}
           filmProjects={filmProjects}
+          experimentProjects={experimentProjects}
         />
         {/* Client Logos Carousel */}
         <LogosCarousel />

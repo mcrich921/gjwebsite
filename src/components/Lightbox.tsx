@@ -25,8 +25,10 @@ const Lightbox: React.FC<LightboxProps> = ({
   const navigateToProject = (direction: "next" | "prev") => {
     if (!allProjects || allProjects.length <= 1 || !onNavigate) return;
 
-    const currentIndex = allProjects.findIndex(
-      (p) => p.shorthand === project.shorthand
+    const currentIndex = allProjects.findIndex((p) =>
+      p.shorthand && project.shorthand
+        ? p.shorthand === project.shorthand
+        : p.name === project.name
     );
     if (currentIndex === -1) return;
 
@@ -168,7 +170,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <span className="mr-2">←</span>
             </button>
             <span className="text-lg font-light italic">
-              {project.shorthand}
+              {project.shorthand || project.name}
             </span>
             <button
               className="flex items-center text-white hover:text-gray-300 transition-colors ml-3"
@@ -203,7 +205,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <div className="aspect-[2/3] mb-4">
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
-                    key={project.shorthand}
+                    key={project.shorthand || project.name}
                     ref={embedContainerRef}
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{
