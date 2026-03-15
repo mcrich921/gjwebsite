@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 
 interface MonogramProps {
   isVisible: boolean;
+  isEnabled: boolean;
 }
 
-const Monogram: React.FC<MonogramProps> = ({ isVisible }) => {
+const Monogram: React.FC<MonogramProps> = ({ isVisible, isEnabled }) => {
   const fadeVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,10 +38,17 @@ const Monogram: React.FC<MonogramProps> = ({ isVisible }) => {
       animate={isVisible ? "visible" : "hidden"}
       whileTap={{ scale: 0.98 }}
       className="fixed top-8 left-8 z-40 text-5xl font-bold cursor-pointer select-none"
-      onClick={() => scrollToTop()}
     >
       <ul>
-        <motion.li variants={itemVariants}>GJ</motion.li>
+        {isEnabled ? (
+          <motion.li variants={itemVariants} onClick={scrollToTop}>
+            GJ
+          </motion.li>
+        ) : (
+          <motion.li variants={itemVariants} className="cursor-default">
+            GJ
+          </motion.li>
+        )}
       </ul>
     </motion.div>
   );

@@ -49,7 +49,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     const handle = () => {
       const contentEl = titleContainerRef.current;
       const heroEl = document.querySelector(
-        ".hero-title-container"
+        ".hero-title-container",
       ) as HTMLElement | null;
       if (!contentEl) return;
       const contentTop = contentEl.getBoundingClientRect().top;
@@ -99,7 +99,40 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
       {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
-      {hideHero && <Monogram isVisible={hideHero} />}
+      {hideHero && (
+        <Monogram
+          isVisible={hideHero}
+          isEnabled={!selectedProject ? true : false}
+        />
+      )}
+
+      {/* Lightbox rendered here (sibling to Monogram) so its z-50 stacks above Monogram z-40 */}
+      {selectedProject &&
+        (selectedProject.mediaAspect === "h" ? (
+          <HorizontalLightbox
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            allProjects={
+              selectedProject &&
+              projects.some((p) => p.shorthand === selectedProject.shorthand)
+                ? projects
+                : filmProjects
+            }
+            onNavigate={setSelectedProject}
+          />
+        ) : (
+          <Lightbox
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            allProjects={
+              selectedProject &&
+              projects.some((p) => p.shorthand === selectedProject.shorthand)
+                ? projects
+                : filmProjects
+            }
+            onNavigate={setSelectedProject}
+          />
+        ))}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
@@ -171,34 +204,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         <div id="reels"></div>
         <Reels />
         <AboutSection />
-        {/* Lightbox */}
-
-        {selectedProject &&
-          (selectedProject.mediaAspect === "h" ? (
-            <HorizontalLightbox
-              project={selectedProject}
-              onClose={() => setSelectedProject(null)}
-              allProjects={
-                selectedProject &&
-                projects.some((p) => p.shorthand === selectedProject.shorthand)
-                  ? projects
-                  : filmProjects
-              }
-              onNavigate={setSelectedProject}
-            />
-          ) : (
-            <Lightbox
-              project={selectedProject}
-              onClose={() => setSelectedProject(null)}
-              allProjects={
-                selectedProject &&
-                projects.some((p) => p.shorthand === selectedProject.shorthand)
-                  ? projects
-                  : filmProjects
-              }
-              onNavigate={setSelectedProject}
-            />
-          ))}
       </motion.div>
     </div>
   );
