@@ -8,7 +8,7 @@ const clamp = (value: number, min: number, max: number) =>
 const interpolate = (
   t: number,
   [a, b]: [number, number],
-  [min, max]: [number, number]
+  [min, max]: [number, number],
 ) => {
   const clamped = clamp((t - a) / (b - a), 0, 1);
   return min + clamped * (max - min);
@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
           const rawProgress = clamp(
             (window.scrollY - heroStart) / (getHeroHeight() * 0.5),
             0,
-            1
+            1,
           );
           setScrollProgress(rawProgress);
           setVideoOpacity(clamp(1 - rawProgress * 1.2, 0, 1));
@@ -76,7 +76,6 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
 
   // Direct mapping: no easing
   const progress = scrollProgress;
-  console.log("progress", progress);
 
   // Interpolations
   const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
@@ -88,7 +87,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
   const socialTranslateY = interpolate(
     progress,
     [0.4, 0.8],
-    [socialTranslateStart, socialTranslateEnd]
+    [socialTranslateStart, socialTranslateEnd],
   );
 
   const reelTranslateStart = Math.max(0, viewportHeight * 0.55);
@@ -96,7 +95,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
   const reelTranslateY = interpolate(
     progress,
     [0.7, 1.0],
-    [reelTranslateStart, reelTranslateEnd]
+    [reelTranslateStart, reelTranslateEnd],
   );
 
   const colorValue = Math.round(interpolate(progress, [0, 1], [255, 0]));
@@ -134,11 +133,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M2 2L11 10L20 2"
-              stroke="white"
-              strokeWidth="2"
-            />
+            <path d="M2 2L11 10L20 2" stroke="white" strokeWidth="2" />
           </svg>
         </div>
       </div>
