@@ -17,6 +17,15 @@ interface WebsiteContentProps {
 
 const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const lightboxAnimatedRef = useRef(false);
+  const lightboxIsOpen = selectedProject !== null;
+  useEffect(() => {
+    if (lightboxIsOpen) {
+      lightboxAnimatedRef.current = true;
+    } else {
+      lightboxAnimatedRef.current = false;
+    }
+  }, [lightboxIsOpen]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
@@ -118,45 +127,35 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
 
       {/* Lightbox rendered here (sibling to Monogram) so its z-50 stacks above Monogram z-40 */}
       {selectedProject &&
-        (selectedProject.mediaAspect === "h" ? (
-          <HorizontalLightbox
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-            allProjects={
-              selectedProject &&
-              experimentProjects.some(
-                (p) => p.shorthand === selectedProject.shorthand,
-              )
-                ? experimentProjects
-                : selectedProject &&
-                    filmProjects.some(
-                      (p) => p.shorthand === selectedProject.shorthand,
-                    )
-                  ? filmProjects
-                  : projects
-            }
-            onNavigate={setSelectedProject}
-          />
-        ) : (
-          <Lightbox
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-            allProjects={
-              selectedProject &&
-              experimentProjects.some(
-                (p) => p.shorthand === selectedProject.shorthand,
-              )
-                ? experimentProjects
-                : selectedProject &&
-                    filmProjects.some(
-                      (p) => p.shorthand === selectedProject.shorthand,
-                    )
-                  ? filmProjects
-                  : projects
-            }
-            onNavigate={setSelectedProject}
-          />
-        ))}
+        (() => {
+          const skipAnimation = lightboxAnimatedRef.current;
+          const allProjects = experimentProjects.some(
+            (p) => p.shorthand === selectedProject.shorthand,
+          )
+            ? experimentProjects
+            : filmProjects.some(
+                  (p) => p.shorthand === selectedProject.shorthand,
+                )
+              ? filmProjects
+              : projects;
+          return selectedProject.mediaAspect === "h" ? (
+            <HorizontalLightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={allProjects}
+              onNavigate={setSelectedProject}
+              skipAnimation={skipAnimation}
+            />
+          ) : (
+            <Lightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={allProjects}
+              onNavigate={setSelectedProject}
+              skipAnimation={skipAnimation}
+            />
+          );
+        })()}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />

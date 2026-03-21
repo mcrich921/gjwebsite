@@ -14,6 +14,7 @@ interface LightboxProps {
   onClose: () => void;
   allProjects?: Project[];
   onNavigate?: (project: Project) => void;
+  skipAnimation?: boolean;
 }
 
 const Lightbox: React.FC<LightboxProps> = ({
@@ -21,6 +22,7 @@ const Lightbox: React.FC<LightboxProps> = ({
   onClose,
   allProjects = [],
   onNavigate,
+  skipAnimation = false,
 }) => {
   const navigateToProject = (direction: "next" | "prev") => {
     if (!allProjects || allProjects.length <= 1 || !onNavigate) return;
@@ -28,7 +30,7 @@ const Lightbox: React.FC<LightboxProps> = ({
     const currentIndex = allProjects.findIndex((p) =>
       p.shorthand && project.shorthand
         ? p.shorthand === project.shorthand
-        : p.name === project.name
+        : p.name === project.name,
     );
     if (currentIndex === -1) return;
 
@@ -94,7 +96,7 @@ const Lightbox: React.FC<LightboxProps> = ({
     // Remove any <script> tags to avoid confusion; we will load/process SDK ourselves
     const withoutScripts = project.coverEmbedOrImage.replace(
       /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
-      ""
+      "",
     );
     return withoutScripts.trim();
   }, [project.coverMedia, project.coverEmbedOrImage]);
@@ -118,7 +120,7 @@ const Lightbox: React.FC<LightboxProps> = ({
     };
 
     const existing = document.querySelector(
-      'script[src*="instagram.com/embed.js"]'
+      'script[src*="instagram.com/embed.js"]',
     ) as HTMLScriptElement | null;
 
     if (!existing) {
@@ -143,7 +145,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={skipAnimation ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 md:p-8"
@@ -151,7 +153,7 @@ const Lightbox: React.FC<LightboxProps> = ({
     >
       {/* Content Container */}
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
+        initial={skipAnimation ? false : { y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
         className="bg-white border-3 border-black w-[1000px] max-h-[80vh] overflow-hidden relative flex flex-col"
@@ -215,6 +217,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                 ) : media.length > 0 ? (
                   media[0].type === "video" ? (
                     <video
+                      key={media[0].url}
                       className="w-full h-full object-cover"
                       autoPlay
                       muted
@@ -227,6 +230,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                     </video>
                   ) : (
                     <img
+                      key={media[0].url}
                       src={media[0].url}
                       alt={project.name}
                       className="w-full h-full object-cover"
@@ -327,7 +331,7 @@ const Lightbox: React.FC<LightboxProps> = ({
           {media.length > 1 && (
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
               {media.slice(1).map((mediaItem, index) => (
-                <div key={index} className="aspect-video w-full">
+                <div key={mediaItem.url} className="aspect-video w-full">
                   {mediaItem.type === "video" ? (
                     <video
                       className="w-full h-full object-cover"
