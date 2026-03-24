@@ -17,13 +17,23 @@ interface WebsiteContentProps {
 
 const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const lightboxAnimatedRef = useRef(false);
+  const lightboxIsOpen = selectedProject !== null;
+  useEffect(() => {
+    if (lightboxIsOpen) {
+      lightboxAnimatedRef.current = true;
+    } else {
+      lightboxAnimatedRef.current = false;
+    }
+  }, [lightboxIsOpen]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
+  const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   // Fetch all projects on component mount
   useEffect(() => {
-    parseProjects("/vite-react-test/gjprojects.csv")
+    parseProjects("/gjprojects.csv")
       .then((data) => {
         setProjects(data);
       })
@@ -32,12 +42,21 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/vite-react-test/gjfilm+tv.csv")
+    parseProjects("/gjfilm+tv.csv")
       .then((data) => {
         setFilmProjects(data);
       })
       .catch((err) => {
         console.error("Error parsing projects:", err);
+      });
+  }, []);
+  useEffect(() => {
+    parseProjects("/experiments.csv")
+      .then((data) => {
+        setExperimentProjects(data);
+      })
+      .catch((err) => {
+        console.error("Error parsing experiments:", err);
       });
   }, []);
 
@@ -49,7 +68,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     const handle = () => {
       const contentEl = titleContainerRef.current;
       const heroEl = document.querySelector(
-        ".hero-title-container"
+        ".hero-title-container",
       ) as HTMLElement | null;
       if (!contentEl) return;
       const contentTop = contentEl.getBoundingClientRect().top;
@@ -99,7 +118,44 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     <div className="relative">
       {/* Navbar appears after hero transitions out */}
       {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
-      {hideHero && <Monogram isVisible={hideHero} />}
+      {hideHero && (
+        <Monogram
+          isVisible={hideHero}
+          isEnabled={!selectedProject ? true : false}
+        />
+      )}
+
+      {/* Lightbox rendered here (sibling to Monogram) so its z-50 stacks above Monogram z-40 */}
+      {selectedProject &&
+        (() => {
+          const skipAnimation = lightboxAnimatedRef.current;
+          const allProjects = experimentProjects.some(
+            (p) => p.shorthand === selectedProject.shorthand,
+          )
+            ? experimentProjects
+            : filmProjects.some(
+                  (p) => p.shorthand === selectedProject.shorthand,
+                )
+              ? filmProjects
+              : projects;
+          return selectedProject.mediaAspect === "h" ? (
+            <HorizontalLightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={allProjects}
+              onNavigate={setSelectedProject}
+              skipAnimation={skipAnimation}
+            />
+          ) : (
+            <Lightbox
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              allProjects={allProjects}
+              onNavigate={setSelectedProject}
+              skipAnimation={skipAnimation}
+            />
+          );
+        })()}
 
       {/* Hero Section */}
       <Hero shouldHide={hideHero} />
@@ -147,10 +203,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
               <video className="w-full h-full object-cover" controls muted>
-                <source
-                  src="/vite-react-test/videos/2024_General_v7.webm"
-                  type="video/webm"
-                />
+                <source src="/videos/2024_General_v7.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -163,6 +216,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           onSelectProject={setSelectedProject}
           projects={projects}
           filmProjects={filmProjects}
+          experimentProjects={experimentProjects}
         />
         {/* Client Logos Carousel */}
         <LogosCarousel />
@@ -171,34 +225,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         <div id="reels"></div>
         <Reels />
         <AboutSection />
-        {/* Lightbox */}
-
-        {selectedProject &&
-          (selectedProject.mediaAspect === "h" ? (
-            <HorizontalLightbox
-              project={selectedProject}
-              onClose={() => setSelectedProject(null)}
-              allProjects={
-                selectedProject &&
-                projects.some((p) => p.shorthand === selectedProject.shorthand)
-                  ? projects
-                  : filmProjects
-              }
-              onNavigate={setSelectedProject}
-            />
-          ) : (
-            <Lightbox
-              project={selectedProject}
-              onClose={() => setSelectedProject(null)}
-              allProjects={
-                selectedProject &&
-                projects.some((p) => p.shorthand === selectedProject.shorthand)
-                  ? projects
-                  : filmProjects
-              }
-              onNavigate={setSelectedProject}
-            />
-          ))}
       </motion.div>
     </div>
   );

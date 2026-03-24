@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   isVisible: boolean;
@@ -99,13 +100,12 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
         </motion.li>
         <motion.li variants={itemVariants}>
           {isEnabled ? (
-            <a
-              target="_blank"
-              href="google.com"
-              className="text-lg hover:underline transition-colors"
+            <Link
+              to="/tools"
+              className="text-lg hover:underline transition-colors tools-link"
             >
               tools
-            </a>
+            </Link>
           ) : (
             <div className="text-lg cursor-default">tools</div>
           )}
