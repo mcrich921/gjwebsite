@@ -31,6 +31,9 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
+  const handleHeroProgress = (progress: number) => {
+    setHideHero(progress >= 1);
+  };
   // Fetch all projects on component mount
   useEffect(() => {
     parseProjects("/gjprojects.csv")
@@ -58,37 +61,6 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       .catch((err) => {
         console.error("Error parsing experiments:", err);
       });
-  }, []);
-
-  // Detect when the content title container aligns with the hero title container top.
-  // Only hide hero after user has scrolled past a threshold so resize at top of page doesn't flicker.
-  const SCROLL_THRESHOLD_PX = 80;
-
-  useEffect(() => {
-    const handle = () => {
-      const contentEl = titleContainerRef.current;
-      const heroEl = document.querySelector(
-        ".hero-title-container",
-      ) as HTMLElement | null;
-      if (!contentEl) return;
-      const contentTop = contentEl.getBoundingClientRect().top;
-      const heroTop = heroEl ? heroEl.getBoundingClientRect().top : 0; // fallback
-      const aligned = contentTop <= heroTop;
-      // Require scroll past threshold so we don't hide hero when user is still "on" the hero (avoids resize flicker)
-      setHideHero(aligned && window.scrollY > SCROLL_THRESHOLD_PX);
-    };
-
-    const handleResize = () => {
-      requestAnimationFrame(handle);
-    };
-
-    handle();
-    window.addEventListener("scroll", handle, { passive: true });
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("scroll", handle as EventListener);
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   // Animation variants for the content sections
@@ -158,14 +130,14 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         })()}
 
       {/* Hero Section */}
-      <Hero shouldHide={hideHero} />
+      <Hero shouldHide={hideHero} onProgress={handleHeroProgress} />
 
       {/* Main content container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
-        className="relative z-0 w-screen pt-2 px-0 py-12"
+        className="relative z-0 w-screen px-0"
       >
         <div
           className="title-container"

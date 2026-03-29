@@ -16,9 +16,10 @@ const interpolate = (
 
 interface HeroProps {
   shouldHide?: boolean;
+  onProgress?: (progress: number) => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
+const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -76,6 +77,10 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false }) => {
 
   // Direct mapping: no easing
   const progress = scrollProgress;
+
+  useEffect(() => {
+    onProgress?.(progress);
+  }, [progress, onProgress]);
 
   // Interpolations
   const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
