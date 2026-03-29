@@ -6,7 +6,7 @@
 }
 
 .hero-sticky {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100vw;
   height: 100vh;
@@ -80,7 +80,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: -65vh;
   z-index: 30;
 }
 
@@ -121,7 +120,7 @@
 }
 
 .hero-title-container {
-  position: sticky;
+  position: fixed;
   top: var(--navbar-offset, 2.5rem);
   left: 0;
   right: 0;
@@ -129,7 +128,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: -60vh;
   z-index: 30;
 }
 

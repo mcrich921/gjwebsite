@@ -25,8 +25,22 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [videoOpacity, setVideoOpacity] = useState(1);
   const [viewportHeight, setViewportHeight] = useState(0);
+  const [containerOffsetY, setContainerOffsetY] = useState(() =>
+    Math.max(0, window.innerHeight * 0.4 - 40),
+  );
   const [ready, setReady] = useState(false);
   const yourName = "GREG JOBLOVE";
+
+  const [spacerHeight, setSpacerHeight] = useState(0);
+
+  useEffect(() => {
+    const updateSpacer = () => {
+      setSpacerHeight(window.innerHeight * 0.5 + 40);
+    };
+    updateSpacer();
+    window.addEventListener("resize", updateSpacer);
+    return () => window.removeEventListener("resize", updateSpacer);
+  }, []);
 
   useEffect(() => {
     // Wait one animation frame for layout + transform to apply
@@ -40,6 +54,9 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
     const heroStart = element.offsetTop;
     const getHeroHeight = () => element.offsetHeight || window.innerHeight;
 
+    // Distance the container travels before sticking (40vh natural pos − 40px sticky top)
+    const getStickyRange = () => Math.max(0, window.innerHeight * 0.4 - 40);
+
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
@@ -51,6 +68,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
           );
           setScrollProgress(rawProgress);
           setVideoOpacity(clamp(1 - rawProgress * 1.2, 0, 1));
+          setContainerOffsetY(Math.max(0, getStickyRange() - window.scrollY));
           // Sync overlay dot pattern with page background
           if (overlayRef.current) {
             overlayRef.current.style.backgroundPosition = `0px ${-window.scrollY}px, 0 0`;
@@ -149,6 +167,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
         style={{
           opacity: shouldHide ? 0 : 1,
           pointerEvents: shouldHide ? "none" : "auto",
+          transform: `translateY(${containerOffsetY}px)`,
           transition: "none",
         }}
       >
@@ -227,6 +246,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
           <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
         </div>
       </div>
+      <div style={{ height: spacerHeight }} aria-hidden="true" />
     </>
   );
 };
