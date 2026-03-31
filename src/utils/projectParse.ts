@@ -20,7 +20,10 @@ export interface Project {
   coverEmbedOrImage: string;
 }
 
-export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
+export async function parseProjects(
+  csvEndpoint: string,
+  mediaFolder: string = "projects",
+): Promise<Project[]> {
   try {
     const response = await fetch(csvEndpoint);
     const csvText = await response.text();
@@ -46,7 +49,7 @@ export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
                 })
                 .filter(
                   (c: { credit: string; person: string }) =>
-                    c.credit && c.person
+                    c.credit && c.person,
                 ),
               year: row.year || "",
               mediaPaths: row.media_path
@@ -54,7 +57,7 @@ export async function parseProjects(csvEndpoint: string): Promise<Project[]> {
                     .split(",")
                     .map((path: string) => path.trim())
                     .filter((path: string) => path !== "")
-                    .map((path:string) => `projects/${path}`)
+                    .map((path: string) => `${mediaFolder}/${path}`)
                 : null,
               mediaFeature: row.media_feature === "TRUE",
               visible: row.visible === "TRUE",

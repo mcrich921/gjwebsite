@@ -36,7 +36,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   };
   // Fetch all projects on component mount
   useEffect(() => {
-    parseProjects("/gjprojects.csv")
+    parseProjects("/gjprojects.csv", "projects")
       .then((data) => {
         setProjects(data);
       })
@@ -45,7 +45,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/gjfilm+tv.csv")
+    parseProjects("/gjfilm+tv.csv", "film+tv")
       .then((data) => {
         setFilmProjects(data);
       })
@@ -54,7 +54,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/experiments.csv")
+    parseProjects("/experiments.csv", "experiments")
       .then((data) => {
         setExperimentProjects(data);
       })

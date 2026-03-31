@@ -32,7 +32,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       setProjects(passedProjects);
       setLoading(false);
     } else {
-      parseProjects("/gjprojects.csv")
+      parseProjects("/gjprojects.csv", "projects")
         .then((data) => {
           setProjects(data);
         })
@@ -49,7 +49,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       setFilmProjects(passedFilmProjects);
       setLoading(false);
     } else {
-      parseProjects("/gjfilm+tv.csv")
+      parseProjects("/gjfilm+tv.csv", "film+tv")
         .then((data) => {
           setFilmProjects(data);
         })
@@ -65,7 +65,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     if (passedExperimentProjects && passedExperimentProjects.length > 0) {
       setExperimentProjects(passedExperimentProjects);
     } else {
-      parseProjects("/experiments.csv")
+      parseProjects("/experiments.csv", "experiments")
         .then((data) => {
           setExperimentProjects(data);
         })
