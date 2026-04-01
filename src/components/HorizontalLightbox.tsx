@@ -24,6 +24,7 @@ const Lightbox: React.FC<LightboxProps> = ({
   onNavigate,
   skipAnimation = false,
 }) => {
+  console.log("horizontal");
   const navigateToProject = (direction: "next" | "prev") => {
     if (!allProjects || allProjects.length <= 1 || !onNavigate) return;
 
@@ -203,9 +204,11 @@ const Lightbox: React.FC<LightboxProps> = ({
         >
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
             {/* Left Column - Media */}
-            <div className="h-full flex items-center justify-center">
+            <div
+              className={`${project.coverMedia === "embed" ? "" : "h-full"} flex items-center justify-center`}
+            >
               <div
-                className={`${project.coverMedia === "embed" ? "max-h-[400px]" : "aspect-video w-full"} mb-4 overflow-hidden`}
+                className={`${project.coverMedia === "embed" ? "w-full" : "aspect-video w-full overflow-hidden"}`}
               >
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
@@ -332,7 +335,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
           {/* Additional media section, full width, 2 columns */}
           {media.length > 1 && (
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {media.slice(1).map((mediaItem, index) => (
                 <div
                   key={mediaItem.url}

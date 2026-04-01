@@ -204,7 +204,9 @@ const Lightbox: React.FC<LightboxProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
             {/* Left Column - Media */}
             <div>
-              <div className="aspect-[2/3] mb-4">
+              <div
+                className={`${project.coverMedia === "embed" ? "w-full" : "aspect-[2/3] overflow-hidden"}`}
+              >
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
                     key={project.shorthand || project.name}
