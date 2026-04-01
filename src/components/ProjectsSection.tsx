@@ -188,11 +188,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {filmProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1 hover:text-white hover:bg-black"
+              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
               onClick={() => handleProjectClick(project)}
             >
-              {project.name}
-              {project.subtitle ? ` (${project.subtitle})` : ""}
+              <span className=" hover:text-white hover:bg-black">
+                {project.name}
+                {project.subtitle ? ` (${project.subtitle})` : ""}
+              </span>
               <sup className="align-super text-sm ml-1">
                 {project.year.slice(-4)}
               </sup>
@@ -209,11 +211,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {experimentProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1 hover:text-white hover:bg-black"
+              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
               onClick={() => handleProjectClick(project)}
             >
-              {project.name}
-              {project.subtitle ? ` (${project.subtitle})` : ""}
+              <span className=" hover:text-white hover:bg-black">
+                {project.name}
+                {project.subtitle ? ` (${project.subtitle})` : ""}
+              </span>
               {project.year ? (
                 <sup className="align-super text-sm ml-1">
                   {project.year.slice(-4)}
