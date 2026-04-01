@@ -219,9 +219,6 @@ const Lightbox: React.FC<LightboxProps> = ({
                     <video
                       key={media[0].url}
                       className="w-full h-full object-cover"
-                      autoPlay
-                      muted
-                      loop
                       playsInline
                       controls
                     >

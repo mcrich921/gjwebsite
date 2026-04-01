@@ -222,10 +222,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                     <video
                       key={media[0].url}
                       className="w-full h-full object-cover"
-                      controls={false}
-                      autoPlay
-                      muted
-                      loop
+                      controls={true}
                     >
                       <source src={media[0].url} type="video/mp4" />
                       Your browser does not support the video tag.
