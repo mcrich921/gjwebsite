@@ -95,11 +95,17 @@ const ToolsPage: React.FC = () => {
 
         {/* Content */}
         <div className="tools-content">
-          <p style={{ fontSize: "36px", marginBottom: 0 }}>software / assets</p>
+          <p style={{ fontSize: "36px", marginBottom: 0, marginTop: "36px" }}>
+            software / assets
+          </p>
           <p style={{ fontSize: "24px", fontStyle: "italic", margin: "auto" }}>
             free! ↓
           </p>
-          <p style={{ fontSize: "16px", fontWeight: "bold" }}>software</p>
+          <p
+            style={{ fontSize: "16px", fontWeight: "bold", marginTop: "16px" }}
+          >
+            software
+          </p>
 
           <p>
             <A href="https://www.blender.org/">Blender</A> – Words cannot
