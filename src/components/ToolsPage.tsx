@@ -1,5 +1,7 @@
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Monogram from "./Monogram";
 
 const A: React.FC<{ href: string; children: React.ReactNode }> = ({
   href,
@@ -16,6 +18,19 @@ const A: React.FC<{ href: string; children: React.ReactNode }> = ({
 );
 
 const ToolsPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [monogramVisible, setMonogramVisible] = useState(false);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setMonogramVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    if (headerRef.current) observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,8 +38,14 @@ const ToolsPage: React.FC = () => {
       transition={{ duration: 0.4 }}
       className="tools-page min-h-screen"
     >
+      <Monogram
+        isVisible={monogramVisible}
+        isEnabled={true}
+        onClick={() => navigate("/")}
+      />
+
       {/* Site header */}
-      <div className="homepage-info">
+      <div className="homepage-info" ref={headerRef}>
         <h1 className="heading">
           <Link to="/">GREG JOBLOVE</Link>
         </h1>

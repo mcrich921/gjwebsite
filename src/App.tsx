@@ -1,11 +1,21 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import WebsiteContent from "./components/WebsiteContent";
 import ToolsPage from "./components/ToolsPage";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   return (
     <BrowserRouter basename="/">
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"

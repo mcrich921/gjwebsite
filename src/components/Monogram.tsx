@@ -3,11 +3,16 @@ import { motion } from "framer-motion";
 interface MonogramProps {
   isVisible: boolean;
   isEnabled: boolean;
+  onClick?: () => void;
 }
 
-const Monogram: React.FC<MonogramProps> = ({ isVisible, isEnabled }) => {
+const Monogram: React.FC<MonogramProps> = ({
+  isVisible,
+  isEnabled,
+  onClick,
+}) => {
   const fadeVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, transition: { duration: 0 } },
     visible: {
       opacity: 1,
       transition: {
@@ -41,7 +46,7 @@ const Monogram: React.FC<MonogramProps> = ({ isVisible, isEnabled }) => {
     >
       <ul>
         {isEnabled ? (
-          <motion.li variants={itemVariants} onClick={scrollToTop}>
+          <motion.li variants={itemVariants} onClick={onClick ?? scrollToTop}>
             GJ
           </motion.li>
         ) : (
