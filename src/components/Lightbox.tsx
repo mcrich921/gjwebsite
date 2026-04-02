@@ -108,6 +108,14 @@ const Lightbox: React.FC<LightboxProps> = ({
     return anchorMatch ? anchorMatch[1] : "";
   }, [sanitizedEmbedHtml]);
 
+  const isYoutubeEmbed = useMemo(() => {
+    if (!sanitizedEmbedHtml) return false;
+    return (
+      sanitizedEmbedHtml.includes("youtube.com") ||
+      sanitizedEmbedHtml.includes("youtu.be")
+    );
+  }, [sanitizedEmbedHtml]);
+
   useEffect(() => {
     if (project.coverMedia !== "embed" || !sanitizedEmbedHtml) return;
 
@@ -205,13 +213,13 @@ const Lightbox: React.FC<LightboxProps> = ({
             {/* Left Column - Media */}
             <div>
               <div
-                className={`${project.coverMedia === "embed" ? "w-full" : "aspect-[2/3] overflow-hidden"}`}
+                className={`${project.coverMedia !== "embed" ? "aspect-[2/3] overflow-hidden" : isYoutubeEmbed ? "aspect-video w-full overflow-hidden" : "w-full"}`}
               >
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
                     key={project.shorthand || project.name}
                     ref={embedContainerRef}
-                    className="w-full h-full"
+                    className={`w-full ${isYoutubeEmbed ? "h-full [&_iframe]:!w-full [&_iframe]:!h-full" : "[&_iframe]:!max-w-full [&_iframe]:!w-full"}`}
                     dangerouslySetInnerHTML={{
                       __html: sanitizedEmbedHtml,
                     }}

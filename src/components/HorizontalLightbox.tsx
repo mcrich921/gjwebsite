@@ -109,6 +109,14 @@ const Lightbox: React.FC<LightboxProps> = ({
     return anchorMatch ? anchorMatch[1] : "";
   }, [sanitizedEmbedHtml]);
 
+  const isYoutubeEmbed = useMemo(() => {
+    if (!sanitizedEmbedHtml) return false;
+    return (
+      sanitizedEmbedHtml.includes("youtube.com") ||
+      sanitizedEmbedHtml.includes("youtu.be")
+    );
+  }, [sanitizedEmbedHtml]);
+
   useEffect(() => {
     if (project.coverMedia !== "embed" || !sanitizedEmbedHtml) return;
 
@@ -202,19 +210,19 @@ const Lightbox: React.FC<LightboxProps> = ({
             backgroundSize: "20px 20px",
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[410px_1fr] gap-8 items-start">
             {/* Left Column - Media */}
             <div
               className={`${project.coverMedia === "embed" ? "" : "h-full"} flex items-center justify-center`}
             >
               <div
-                className={`${project.coverMedia === "embed" ? "w-full" : "aspect-video w-full overflow-hidden"}`}
+                className={`${project.coverMedia !== "embed" || isYoutubeEmbed ? "aspect-video w-full overflow-hidden" : "w-full"}`}
               >
                 {project.coverMedia === "embed" && sanitizedEmbedHtml ? (
                   <div
                     key={project.shorthand || project.name}
                     ref={embedContainerRef}
-                    className="w-full h-full [&_iframe]:!max-w-full [&_iframe]:!w-full"
+                    className={`w-full ${isYoutubeEmbed ? "h-full [&_iframe]:!w-full [&_iframe]:!h-full" : "[&_iframe]:!max-w-full [&_iframe]:!w-full"}`}
                     style={{ maxWidth: "100%" }}
                     dangerouslySetInnerHTML={{
                       __html: sanitizedEmbedHtml,
