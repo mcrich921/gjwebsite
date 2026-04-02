@@ -197,6 +197,20 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         <div id="reels"></div>
         <Reels />
         <AboutSection />
+        <footer className="w-full text-center py-[20px] text-black text-[10px]">
+          <p className="my-[10px]">© 2026 Greg Joblove. All rights reserved.</p>
+          <p className="italic my-[10px]">
+            Site designed by Greg Joblove, built by{" "}
+            <a
+              href="https://www.linkedin.com/in/matthewrichc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Matthew Rich
+            </a>
+          </p>
+        </footer>
       </motion.div>
     </div>
   );

@@ -305,10 +305,19 @@
 }
 
 .tools-link::after {
-  content: "←";
+  content: " →";
   opacity: 0;
 }
 
 .tools-link:hover::after {
+  opacity: 1;
+}
+
+.home-link::after {
+  content: " ←";
+  opacity: 0;
+}
+
+.home-link:hover::after {
   opacity: 1;
 }

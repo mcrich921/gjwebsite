@@ -84,7 +84,7 @@ const ToolsPage: React.FC = () => {
       <div className="body">
         {/* Nav */}
         <nav className="navbar">
-          <Link to="/" className="tools-link">
+          <Link to="/" className="home-link">
             home
           </Link>
         </nav>
@@ -420,20 +420,20 @@ const ToolsPage: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <div className="footer">
-        <p>&copy; 2026 Greg Joblove. All rights reserved.</p>
-        <p style={{ fontStyle: "italic" }}>
+      <footer className="w-full text-center py-[20px] text-black text-[10px]">
+        <p className="my-[10px]">© 2026 Greg Joblove. All rights reserved.</p>
+        <p className="italic my-[10px]">
           Site designed by Greg Joblove, built by{" "}
           <a
-            style={{ color: "black" }}
             href="https://www.linkedin.com/in/matthewrichc/"
             target="_blank"
             rel="noopener noreferrer"
+            className="underline"
           >
             Matthew Rich
           </a>
         </p>
-      </div>
+      </footer>
     </motion.div>
   );
 };
