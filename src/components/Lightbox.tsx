@@ -270,7 +270,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               </h2>
               <div
                 className="flex items-center"
-                style={{ width: "calc(70% + 40px)" }}
+                style={{ width: "calc(90% + 40px)" }}
               >
                 <p className="text-2xl mb-6 mt-0 leading-tight">
                   {project.year.slice(-4)}
@@ -281,7 +281,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               </div>
 
               {/* Project metadata in a bracket-like design */}
-              <div className="pl-5 mb-6 relative w-[70%]">
+              <div className="pl-5 mb-6 relative w-[90%]">
                 <div className="absolute left-0 top-0 h-5 w-5 border-l border-t border-gray-500 -mt-1"></div>
                 <div className="absolute left-0 bottom-0 h-5 w-5 border-l border-b border-gray-500 -mb-1"></div>
                 <div className="absolute -right-10 top-0 h-5 w-5 border-r border-t border-gray-500 -mt-1"></div>
