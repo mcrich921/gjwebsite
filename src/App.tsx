@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import WebsiteContent from "./components/WebsiteContent";
 import ToolsPage from "./components/ToolsPage";
+import MainReel from "./components/MainReel";
 import NotFound from "./components/NotFound";
 
 function ScrollToTop() {
@@ -29,6 +30,7 @@ function App() {
           }
         />
         <Route path="/tools" element={<ToolsPage />} />
+        <Route path="/reel" element={<MainReel />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
