@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Project } from "../utils/projectParse";
+import { renderWithLinks } from "../utils/renderWithLinks";
 
 const MEDIA_BASE_URL = "https://media.gregjoblove.com";
 
@@ -336,7 +337,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               </div>
               {/* Description */}
               <p className="text-lg leading-relaxed mb-0 text-left">
-                {project.blurb}
+                {project.blurb ? renderWithLinks(project.blurb) : null}
               </p>
             </div>
           </div>
