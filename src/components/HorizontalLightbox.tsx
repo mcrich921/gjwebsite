@@ -25,7 +25,6 @@ const Lightbox: React.FC<LightboxProps> = ({
   onNavigate,
   skipAnimation = false,
 }) => {
-  console.log("horizontal");
   const navigateToProject = (direction: "next" | "prev") => {
     if (!allProjects || allProjects.length <= 1 || !onNavigate) return;
 
@@ -214,7 +213,7 @@ const Lightbox: React.FC<LightboxProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-[410px_1fr] gap-8 items-start">
             {/* Left Column - Media */}
             <div
-              className={`${project.coverMedia === "embed" ? "" : "h-full"} flex items-center justify-center`}
+              className={`${project.coverMedia === "embed" ? "" : "h-full"} flex items-start justify-center`}
             >
               <div
                 className={`${project.coverMedia !== "embed" || isYoutubeEmbed ? "aspect-video w-full overflow-hidden" : "w-full"}`}
@@ -268,7 +267,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
             {/* Right Column - Info */}
             <div className="flex flex-col items-start text-left w-full">
-              <h2 className="text-6xl font-normal mb-1 leading-none">
+              <h2 className="text-6xl font-normal mb-1 leading-[0.8]">
                 {project.name}
               </h2>
               <div

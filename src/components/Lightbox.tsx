@@ -245,7 +245,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                     />
                   )
                 ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <div className="w-full h-full bg-gray-200 flex items-start justify-center">
                     {project.coverMedia === "embed" && instagramPermalink ? (
                       <a
                         href={instagramPermalink}
@@ -265,7 +265,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
             {/* Right Column - Info */}
             <div className="flex flex-col items-start text-left w-full">
-              <h2 className="text-6xl font-normal mb-1 leading-none">
+              <h2 className="text-6xl font-normal mb-1 leading-[0.8]">
                 {project.name}
               </h2>
               <div
