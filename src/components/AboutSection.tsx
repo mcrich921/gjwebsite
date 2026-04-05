@@ -15,11 +15,11 @@ const AboutSection: React.FC = () => (
         {/* Main copy */}
         <div className="md:col-span-5">
           <p className="text-xl leading-8 text-left">
-          I am a filmmaker and visual effects artist based in Brooklyn, NY,
-          specializing in compositing, 3D animation, and motion graphics.
-          With a background in cinematography, editing, and photography,
-          I have honed my skills for pushing technology while leveraging
-          classic theory to bring new visuals to life.
+            I am a filmmaker and visual effects artist based in Brooklyn, NY,
+            specializing in compositing, 3D animation, and motion graphics. With
+            a background in cinematography, editing, and photography, I have
+            honed my skills for pushing technology while leveraging classic
+            theory to bring new visuals to life.
           </p>
 
           <div className="mt-6 text-left">
@@ -76,6 +76,31 @@ const AboutSection: React.FC = () => (
                   rel="noreferrer"
                 >
                   Wesleyan Magazine
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="mt-12 text-left">
+            <div className="text-2xl font-bold mb-3">OTHER LINKS</div>
+            <ul className="space-y-2">
+              <li>
+                <a className="underline" href="/tools" rel="noreferrer">
+                  tools
+                </a>
+              </li>
+              <li>
+                <a className="underline" href="/ideas" rel="noreferrer">
+                  ideas portfolio
+                </a>
+              </li>
+              <li>
+                <a className="underline" href="/wes" rel="noreferrer">
+                  wesleyan portfolio
+                </a>
+              </li>
+              <li>
+                <a className="underline" href="/reel" rel="noreferrer">
+                  reel
                 </a>
               </li>
             </ul>
