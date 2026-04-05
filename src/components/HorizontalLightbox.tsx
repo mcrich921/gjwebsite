@@ -347,11 +347,11 @@ const Lightbox: React.FC<LightboxProps> = ({
               {media.slice(1).map((mediaItem, index) => (
                 <div
                   key={mediaItem.url}
-                  className="aspect-video w-full overflow-hidden"
+                  className="aspect-video w-full overflow-hidden border-[5px] border-black"
                 >
                   {mediaItem.type === "video" ? (
                     <video
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                       controls={false}
                       muted
                       loop

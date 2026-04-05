@@ -338,7 +338,10 @@ const Lightbox: React.FC<LightboxProps> = ({
           {media.length > 1 && (
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
               {media.slice(1).map((mediaItem, index) => (
-                <div key={mediaItem.url} className="aspect-video w-full">
+                <div
+                  key={mediaItem.url}
+                  className="aspect-video w-full border-[5px] border-black"
+                >
                   {mediaItem.type === "video" ? (
                     <video
                       className="w-full h-full object-cover"
