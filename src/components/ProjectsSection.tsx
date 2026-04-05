@@ -165,10 +165,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {filteredProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-6 text-xl font-normal my-4 px-1 py-1"
-              onClick={() => handleProjectClick(project)}
+              className="inline-block mx-6 text-xl font-normal my-4 px-1 py-1"
             >
-              <span className="hover:bg-black hover:text-white py-0">
+              <span
+                className="hover:bg-black hover:text-white py-0 cursor-pointer"
+                onClick={() => handleProjectClick(project)}
+              >
                 {project.name}
                 {project.subtitle ? ` (${project.subtitle})` : ""}
               </span>
@@ -188,10 +190,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {filmProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
-              onClick={() => handleProjectClick(project)}
+              className="inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
             >
-              <span className=" hover:text-white hover:bg-black">
+              <span
+                className="hover:text-white hover:bg-black cursor-pointer"
+                onClick={() => handleProjectClick(project)}
+              >
                 {project.name}
                 {project.subtitle ? ` (${project.subtitle})` : ""}
               </span>
@@ -211,10 +215,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           {experimentProjects.map((project, idx) => (
             <div
               key={idx}
-              className="cursor-pointer inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
-              onClick={() => handleProjectClick(project)}
+              className="inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
             >
-              <span className=" hover:text-white hover:bg-black">
+              <span
+                className="hover:text-white hover:bg-black cursor-pointer"
+                onClick={() => handleProjectClick(project)}
+              >
                 {project.name}
                 {project.subtitle ? ` (${project.subtitle})` : ""}
               </span>
