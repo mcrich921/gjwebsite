@@ -80,31 +80,6 @@ const AboutSection: React.FC = () => (
               </li>
             </ul>
           </div>
-          <div className="mt-12 text-left">
-            <div className="text-2xl font-bold mb-3">OTHER LINKS</div>
-            <ul className="space-y-2">
-              <li>
-                <a className="underline" href="/tools" rel="noreferrer">
-                  tools
-                </a>
-              </li>
-              <li>
-                <a className="underline" href="/ideas" rel="noreferrer">
-                  ideas portfolio
-                </a>
-              </li>
-              <li>
-                <a className="underline" href="/wes" rel="noreferrer">
-                  wesleyan portfolio
-                </a>
-              </li>
-              <li>
-                <a className="underline" href="/reel" rel="noreferrer">
-                  reel
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
         {/* What I Do box */}
@@ -123,6 +98,36 @@ const AboutSection: React.FC = () => (
           </div>
         </div>
       </div>
+    </div>
+    <div className="h-8" />
+
+    <div className="mt-12 text-left mx-auto w-full max-w-[80%] px-6 md:px-10">
+      <h2 className="text-4xl font-normal">other links</h2>
+      <div className="text-md text-gray-500 italic">
+        resources, side-projects, and more
+      </div>
+      <ul className="space-y-2">
+        <li>
+          <a className="underline" href="/tools" rel="noreferrer">
+            tools
+          </a>
+        </li>
+        <li>
+          <a className="underline" href="/ideas" rel="noreferrer">
+            ideas portfolio
+          </a>
+        </li>
+        <li>
+          <a className="underline" href="/wes" rel="noreferrer">
+            wesleyan portfolio
+          </a>
+        </li>
+        <li>
+          <a className="underline" href="/reel" rel="noreferrer">
+            reel
+          </a>
+        </li>
+      </ul>
     </div>
     <div className="h-28" />
   </div>
