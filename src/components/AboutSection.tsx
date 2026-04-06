@@ -103,28 +103,29 @@ const AboutSection: React.FC = () => (
 
     <div className="mt-12 text-left mx-auto w-full max-w-[80%] px-6 md:px-10">
       <h2 className="text-4xl font-normal">other links</h2>
-      <div className="text-md text-gray-500 italic">
-        resources, side-projects, and more
-      </div>
+      <br></br>
+      {/* <div className="text-md text-gray-500 italic">
+        other pages and resources that might be helpful! 
+      </div> */}
       <ul className="space-y-2">
         <li>
           <a className="underline" href="/tools" rel="noreferrer">
-            tools
+            a tools page with useful resources for students, beginners, and people looking for high quality assets
           </a>
         </li>
         <li>
           <a className="underline" href="/ideas" rel="noreferrer">
-            ideas portfolio
+            my I.D.E.A.S. (integrated design, engineering, arts, and scienceses) portfolio from my time at Wesleyan University.
           </a>
         </li>
         <li>
           <a className="underline" href="/wes" rel="noreferrer">
-            wesleyan portfolio
+            a collection with of the Wesleyan student films I've worked on
           </a>
         </li>
         <li>
           <a className="underline" href="/reel" rel="noreferrer">
-            reel
+            cinematography portfolio
           </a>
         </li>
       </ul>
