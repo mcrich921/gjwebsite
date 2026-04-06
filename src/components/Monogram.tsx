@@ -42,7 +42,7 @@ const Monogram: React.FC<MonogramProps> = ({
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       whileTap={{ scale: 0.98 }}
-      className="fixed top-8 left-8 z-40 text-5xl font-bold cursor-pointer select-none"
+      className="fixed top-8 left-8 max-[768px]:top-[8px] max-[768px]:left-[8px] z-40 text-5xl font-bold cursor-pointer select-none"
     >
       <ul>
         {isEnabled ? (

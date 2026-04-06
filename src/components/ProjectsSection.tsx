@@ -115,7 +115,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   if (error) return <div>Error loading projects: {error}</div>;
 
   return (
-    <div id="projects">
+    <div id="projects" className="px-[50px]">
       <div className="flex flex-col items-center mb-8 gap-2">
         <h2 className="text-6xl font-normal">work</h2>
         <a
@@ -129,7 +129,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Projects list */}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
         <h3 className="italic text-4xl mb-4 text-left">projects</h3>
         {/* Category filters */}
         <div className="flex gap-8">
@@ -161,11 +161,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             </label>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
           {filteredProjects.map((project, idx) => (
             <div
               key={idx}
-              className="inline-block mx-6 text-xl font-normal my-4 px-1 py-1"
+              className="inline-block mx-6 max-[768px]:mx-0 text-xl font-normal my-4 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
             >
               <span
                 className="hover:bg-black hover:text-white py-0 cursor-pointer"
@@ -183,14 +183,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Film + TV Projects list*/}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
         <h3 className="italic text-4xl mb-4 text-left">film + tv</h3>
 
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
           {filmProjects.map((project, idx) => (
             <div
               key={idx}
-              className="inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
+              className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
             >
               <span
                 className="hover:text-white hover:bg-black cursor-pointer"
@@ -208,14 +208,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Experiments list */}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
         <h3 className="italic text-4xl mb-4 text-left">experiments</h3>
 
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
           {experimentProjects.map((project, idx) => (
             <div
               key={idx}
-              className="inline-block mx-4 text-xl font-normal my-2 px-1 py-1"
+              className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
             >
               <span
                 className="hover:text-white hover:bg-black cursor-pointer"
