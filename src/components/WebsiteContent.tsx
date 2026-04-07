@@ -30,8 +30,10 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
+  const [heroProgress, setHeroProgress] = useState(0);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   const handleHeroProgress = (progress: number) => {
+    setHeroProgress(progress);
     setHideHero(progress >= 1);
   };
   // Fetch all projects on component mount
@@ -154,7 +156,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           </h1>
           <h2
             className="subtitle"
-            style={{ transform: "translateY(-40px) scale(0.7)" }}
+            style={{ transform: "translateY(-25px) scale(0.7)" }}
           >
             vfx/graphics
           </h2>
@@ -189,6 +191,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           projects={projects}
           filmProjects={filmProjects}
           experimentProjects={experimentProjects}
+          heroProgress={heroProgress}
         />
         {/* Client Logos Carousel */}
         <LogosCarousel />

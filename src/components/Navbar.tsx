@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 interface NavbarProps {
@@ -7,6 +8,30 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) setMenuOpen(false);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const navVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,6 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
   const handleScroll =
     (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
+      setMenuOpen(false);
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -38,80 +64,133 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
     },
   };
 
+  const navItems = [
+    { id: "projects", label: "projects", type: "scroll" as const },
+    { id: "reels", label: "reels", type: "scroll" as const },
+    { id: "about", label: "about", type: "scroll" as const },
+    { id: "contact", label: "contact", type: "scroll" as const },
+    { id: "tools", label: "tools", type: "link" as const },
+  ];
+
   return (
-    <motion.nav
-      variants={navVariants}
-      initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
-      className="fixed top-10 right-16 z-40"
-    >
-      <ul className="flex flex-col space-y-3 text-left">
-        <motion.li variants={itemVariants}>
-          {isEnabled ? (
-            <a
-              href="#projects"
-              onClick={handleScroll("projects")}
-              className="text-lg hover:underline transition-colors"
+    <>
+      {/* Hamburger button — mobile only, always on top */}
+      {isMobile && (
+        <motion.div
+          variants={navVariants}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          className="fixed top-[8px] right-[12px] z-50"
+        >
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block w-6 h-[2px] bg-black transition-transform duration-200 ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
+            />
+            <span
+              className={`block w-6 h-[2px] bg-black transition-opacity duration-200 ${menuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block w-6 h-[2px] bg-black transition-transform duration-200 ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+            />
+          </button>
+        </motion.div>
+      )}
+
+      {/* Slide-out drawer + overlay — mobile only */}
+      <AnimatePresence>
+        {isMobile && menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-black/40 z-40"
+              onClick={() => setMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+              className="fixed top-0 right-0 h-full w-1/3 min-w-[200px] bg-white z-45 shadow-xl flex flex-col justify-start items-start px-8 pt-[64px]"
+              style={{ zIndex: 45 }}
             >
-              projects
-            </a>
-          ) : (
-            <div className="text-lg cursor-default">projects</div>
-          )}
-        </motion.li>
-        <motion.li variants={itemVariants}>
-          {isEnabled ? (
-            <a
-              href="#reel"
-              onClick={handleScroll("reels")}
-              className="text-lg hover:underline transition-colors"
-            >
-              reels
-            </a>
-          ) : (
-            <div className="text-lg cursor-default">reels</div>
-          )}
-        </motion.li>
-        <motion.li variants={itemVariants}>
-          {isEnabled ? (
-            <a
-              href="#about"
-              onClick={handleScroll("about")}
-              className="text-lg hover:underline transition-colors"
-            >
-              about
-            </a>
-          ) : (
-            <div className="text-lg cursor-default">about</div>
-          )}
-        </motion.li>
-        <motion.li variants={itemVariants}>
-          {isEnabled ? (
-            <a
-              href="#contact"
-              onClick={handleScroll("contact")}
-              className="text-lg hover:underline transition-colors"
-            >
-              contact
-            </a>
-          ) : (
-            <div className="text-lg cursor-default">contact</div>
-          )}
-        </motion.li>
-        <motion.li variants={itemVariants}>
-          {isEnabled ? (
-            <Link
-              to="/tools"
-              className="text-lg hover:underline transition-colors tools-link"
-            >
-              tools
-            </Link>
-          ) : (
-            <div className="text-lg cursor-default">tools</div>
-          )}
-        </motion.li>
-      </ul>
-    </motion.nav>
+              <ul className="flex flex-col space-y-6 text-left">
+                {navItems.map((item) => (
+                  <li key={item.id}>
+                    {isEnabled ? (
+                      item.type === "link" ? (
+                        <Link
+                          to="/tools"
+                          onClick={() => setMenuOpen(false)}
+                          className="text-2xl hover:underline transition-colors tools-link"
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={`#${item.id}`}
+                          onClick={handleScroll(item.id)}
+                          className="text-2xl hover:underline transition-colors"
+                        >
+                          {item.label}
+                        </a>
+                      )
+                    ) : (
+                      <div className="text-2xl cursor-default">
+                        {item.label}
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop nav — unchanged */}
+      {!isMobile && (
+        <motion.nav
+          variants={navVariants}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          className="fixed top-10 right-16 z-40"
+        >
+          <ul className="flex flex-col space-y-3 text-left">
+            {navItems.map((item) => (
+              <motion.li key={item.id} variants={itemVariants}>
+                {isEnabled ? (
+                  item.type === "link" ? (
+                    <Link
+                      to="/tools"
+                      className="text-lg hover:underline transition-colors tools-link"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={`#${item.id}`}
+                      onClick={handleScroll(item.id)}
+                      className="text-lg hover:underline transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  )
+                ) : (
+                  <div className="text-lg cursor-default">{item.label}</div>
+                )}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.nav>
+      )}
+    </>
   );
 };
 

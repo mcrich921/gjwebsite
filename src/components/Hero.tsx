@@ -29,6 +29,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
     Math.max(0, window.innerHeight * 0.4 - 40),
   );
   const [ready, setReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const yourName = "GREG JOBLOVE";
 
   const [spacerHeight, setSpacerHeight] = useState(0);
@@ -85,12 +86,15 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track viewport height for responsive translate calculations
+  // Track viewport height and mobile state for responsive translate calculations
   useEffect(() => {
-    const updateVH = () => setViewportHeight(window.innerHeight || 0);
-    updateVH();
-    window.addEventListener("resize", updateVH);
-    return () => window.removeEventListener("resize", updateVH);
+    const update = () => {
+      setViewportHeight(window.innerHeight || 0);
+      setIsMobile(window.innerWidth < 768);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
   // Direct mapping: no easing
@@ -103,7 +107,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
   // Interpolations
   const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
   const subtitleScale = interpolate(progress, [0.2, 0.8], [1, 0.7]);
-  const subtitleTranslateY = interpolate(progress, [0.4, 0.8], [0, -40]);
+  const subtitleTranslateY = interpolate(progress, [0.4, 0.8], [0, -25]);
 
   const socialTranslateStart = Math.max(0, viewportHeight * 0.6 - 280);
   const socialTranslateEnd = -25;
@@ -113,11 +117,11 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
     [socialTranslateStart, socialTranslateEnd],
   );
 
-  const reelTranslateStart = Math.max(0, viewportHeight * 0.55);
+  const reelTranslateStart = Math.max(0, viewportHeight * 0.5);
   const reelTranslateEnd = 0;
   const reelTranslateY = interpolate(
     progress,
-    [0.7, 1.0],
+    [0.5, isMobile ? 0.85 : 1.0],
     [reelTranslateStart, reelTranslateEnd],
   );
 

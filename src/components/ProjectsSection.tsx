@@ -7,6 +7,7 @@ interface ProjectsSectionProps {
   projects?: Project[];
   filmProjects?: Project[];
   experimentProjects?: Project[];
+  heroProgress?: number;
 }
 
 type ProjectCategory = "VFX" | "MoGraph";
@@ -16,6 +17,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   projects: passedProjects,
   filmProjects: passedFilmProjects,
   experimentProjects: passedExperimentProjects,
+  heroProgress = 1,
 }) => {
   // track selected categories
   const [selectedCategories, setSelectedCategories] = useState<
@@ -26,6 +28,18 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const clampedProgress = Math.min(1, Math.max(0, (heroProgress - 0.6) / (1.0 - 0.6)));
+  const translateY = isMobile
+    ? window.innerHeight * 0.5 * (1 - clampedProgress)
+    : 0;
 
   useEffect(() => {
     if (passedProjects && passedProjects.length > 0) {
@@ -115,7 +129,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   if (error) return <div>Error loading projects: {error}</div>;
 
   return (
-    <div id="projects" className="px-[50px]">
+    <div
+      id="projects"
+      className="px-[50px]"
+      style={{ transform: `translateY(${translateY}px)` }}
+    >
       <div className="flex flex-col items-center mb-8 gap-2">
         <h2 className="text-6xl font-normal">work</h2>
         <a
