@@ -90,6 +90,20 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
 
   return (
     <div className="relative">
+      {/* White-to-transparent top gradient on mobile after hero hides */}
+      {hideHero && (
+        <motion.div
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="fixed top-0 left-0 w-full md:hidden pointer-events-none z-30"
+          style={{
+            height: "100px",
+            background:
+              "linear-gradient(to bottom, white 60%, transparent 100%)",
+          }}
+        />
+      )}
       {/* Navbar appears after hero transitions out */}
       {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
       {hideHero && (
@@ -173,7 +187,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           <motion.section
             variants={itemVariants}
             id="reel"
-            className="mb-20 w-[50%] mx-auto"
+            className="mb-20 max-[768px]:w-[90%] min-[769px]:w-1/2 mx-auto"
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
               <video className="w-full h-full object-cover" controls muted>
