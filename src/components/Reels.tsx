@@ -7,7 +7,7 @@ const Reels: React.FC = () => (
     <div className="flex flex-col items-center mb-8 gap-2">
       <h2 className="text-6xl font-normal">reels</h2>
     </div>
-    <div className="mx-auto w-full max-w-[80%] px-6 md:px-10">
+    <div className="mx-auto w-full max-[768px]:w-[90%] min-[769px]:max-w-[80%] px-6 md:px-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="relative">
           <span className="absolute -top-6 left-1 text-xl font-bold">VFX</span>

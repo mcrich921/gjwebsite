@@ -229,7 +229,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
         </h2>
         <div
           id="hero-reel"
-          className="w-[50%] mx-auto"
+          className="max-[768px]:w-[90%] min-[769px]:w-1/2 mx-auto"
           style={{
             transform: `translateY(${reelTranslateY}px)`,
             opacity: ready ? (shouldHide ? 0 : 1) : 0,

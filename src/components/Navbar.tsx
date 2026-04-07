@@ -84,18 +84,14 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
         >
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
+            className="flex items-center justify-center w-4 h-10"
             aria-label="Toggle menu"
           >
-            <span
-              className={`block w-6 h-[2px] bg-black transition-transform duration-200 ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
-            />
-            <span
-              className={`block w-6 h-[2px] bg-black transition-opacity duration-200 ${menuOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block w-6 h-[2px] bg-black transition-transform duration-200 ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
-            />
+            <span className="flex flex-col items-center justify-center gap-[8px]">
+              <span className="w-1 h-1 bg-black block" />
+              <span className="w-1 h-1 bg-black block" />
+              <span className="w-1 h-1 bg-black block" />
+            </span>
           </button>
         </motion.div>
       )}
