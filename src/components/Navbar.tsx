@@ -78,7 +78,6 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: "projects", label: "projects", type: "scroll" as const },
     { id: "reels", label: "reels", type: "scroll" as const },
     { id: "about", label: "about", type: "scroll" as const },
-    { id: "contact", label: "contact", type: "scroll" as const },
     { id: "tools", label: "tools", type: "link" as const },
   ];
 
