@@ -313,6 +313,13 @@
   opacity: 1;
 }
 
+@media (max-width: 767px) {
+  .tools-link::after,
+  .tools-link:hover::after {
+    display: none;
+  }
+}
+
 .home-link::after {
   content: " ←";
   opacity: 0;

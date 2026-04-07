@@ -5,10 +5,20 @@ import { Link } from "react-router-dom";
 interface NavbarProps {
   isVisible: boolean;
   isEnabled: boolean;
+  onMenuOpenChange?: (open: boolean) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  isVisible,
+  isEnabled,
+  onMenuOpenChange,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const setMenu = (open: boolean) => {
+    setMenuOpen(open);
+    onMenuOpenChange?.(open);
+  };
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -18,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
   }, []);
 
   useEffect(() => {
-    if (!isMobile) setMenuOpen(false);
+    if (!isMobile) setMenu(false);
   }, [isMobile]);
 
   useEffect(() => {
@@ -46,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
   const handleScroll =
     (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
-      setMenuOpen(false);
+      setMenu(false);
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -83,70 +93,90 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible, isEnabled }) => {
           className="fixed top-[8px] right-[12px] z-50"
         >
           <button
-            onClick={() => setMenuOpen((prev) => !prev)}
+            onClick={() => setMenu(!menuOpen)}
             className="flex items-center justify-center w-4 h-10"
             aria-label="Toggle menu"
           >
             <span className="flex flex-col items-center justify-center gap-[8px]">
-              <span className="w-1 h-1 bg-black block" />
-              <span className="w-1 h-1 bg-black block" />
-              <span className="w-1 h-1 bg-black block" />
+              <span
+                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+              />
+              <span
+                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+              />
+              <span
+                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+              />
             </span>
           </button>
         </motion.div>
       )}
 
-      {/* Slide-out drawer + overlay — mobile only */}
+      {/* Fullscreen overlay menu — mobile only */}
       <AnimatePresence>
         {isMobile && menuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/40 z-40"
-              onClick={() => setMenuOpen(false)}
-            />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 right-0 h-full w-1/3 min-w-[200px] bg-white z-45 shadow-xl flex flex-col justify-start items-start px-8 pt-[64px]"
-              style={{ zIndex: 45 }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 flex items-center justify-center"
+            style={{
+              backgroundColor: "rgba(40, 40, 40, 0.6)",
+              backdropFilter: "blur(5px)",
+              WebkitBackdropFilter: "blur(5px)",
+            }}
+            onClick={() => setMenu(false)}
+          >
+            <motion.ul
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.07 } },
+              }}
+              className="flex flex-col items-center space-y-8"
+              onClick={(e) => e.stopPropagation()}
             >
-              <ul className="flex flex-col space-y-6 text-left">
-                {navItems.map((item) => (
-                  <li key={item.id}>
-                    {isEnabled ? (
-                      item.type === "link" ? (
-                        <Link
-                          to="/tools"
-                          onClick={() => setMenuOpen(false)}
-                          className="text-2xl hover:underline transition-colors tools-link"
-                        >
-                          {item.label}
-                        </Link>
-                      ) : (
-                        <a
-                          href={`#${item.id}`}
-                          onClick={handleScroll(item.id)}
-                          className="text-2xl hover:underline transition-colors"
-                        >
-                          {item.label}
-                        </a>
-                      )
-                    ) : (
-                      <div className="text-2xl cursor-default">
+              {navItems.map((item) => (
+                <motion.li
+                  key={item.id}
+                  variants={{
+                    hidden: { y: 16, opacity: 0 },
+                    visible: {
+                      y: 0,
+                      opacity: 1,
+                      transition: { duration: 0.35 },
+                    },
+                  }}
+                >
+                  {isEnabled ? (
+                    item.type === "link" ? (
+                      <Link
+                        to="/tools"
+                        onClick={() => setMenu(false)}
+                        className="text-3xl text-white hover:underline transition-colors tools-link"
+                      >
                         {item.label}
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </>
+                      </Link>
+                    ) : (
+                      <a
+                        href={`#${item.id}`}
+                        onClick={handleScroll(item.id)}
+                        className="text-3xl text-white hover:underline transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    )
+                  ) : (
+                    <div className="text-3xl text-white cursor-default">
+                      {item.label}
+                    </div>
+                  )}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
         )}
       </AnimatePresence>
 

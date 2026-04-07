@@ -30,6 +30,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [filmProjects, setFilmProjects] = useState<Project[]>([]);
   const [experimentProjects, setExperimentProjects] = useState<Project[]>([]);
   const [hideHero, setHideHero] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   const handleHeroProgress = (progress: number) => {
@@ -105,11 +106,18 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         />
       )}
       {/* Navbar appears after hero transitions out */}
-      {hideHero && <Navbar isVisible={hideHero} isEnabled={!selectedProject} />}
+      {hideHero && (
+        <Navbar
+          isVisible={hideHero}
+          isEnabled={!selectedProject}
+          onMenuOpenChange={setMenuOpen}
+        />
+      )}
       {hideHero && (
         <Monogram
           isVisible={hideHero}
           isEnabled={!selectedProject ? true : false}
+          menuOpen={menuOpen}
         />
       )}
 
