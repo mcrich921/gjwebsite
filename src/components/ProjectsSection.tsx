@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Project, parseProjects } from "../utils/projectParse";
 
 interface ProjectsSectionProps {
@@ -29,12 +29,44 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [centeredItem, setCenteredItem] = useState<string | null>(null);
+  const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  useEffect(() => {
+    const findCentered = () => {
+      if (!isMobile) {
+        setCenteredItem(null);
+        return;
+      }
+      const midY = window.innerHeight / 2;
+      let closestKey: string | null = null;
+      let closestDist = Infinity;
+      itemRefs.current.forEach((el, key) => {
+        const rect = el.getBoundingClientRect();
+        const itemMidY = (rect.top + rect.bottom) / 2;
+        const dist = Math.abs(itemMidY - midY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestKey = key;
+        }
+      });
+      setCenteredItem(closestDist < window.innerHeight / 8 ? closestKey : null);
+    };
+
+    window.addEventListener("scroll", findCentered);
+    window.addEventListener("resize", findCentered);
+    requestAnimationFrame(findCentered);
+    return () => {
+      window.removeEventListener("scroll", findCentered);
+      window.removeEventListener("resize", findCentered);
+    };
+  }, [isMobile]);
 
   const clampedProgress = Math.min(
     1,
@@ -179,23 +211,31 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </div>
         </div>
         <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
-          {filteredProjects.map((project, idx) => (
-            <div
-              key={idx}
-              className="inline-block mx-6 max-[768px]:mx-0 text-xl font-normal my-4 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
-            >
-              <span
-                className="hover:bg-black hover:text-white py-0 cursor-pointer"
-                onClick={() => handleProjectClick(project)}
+          {filteredProjects.map((project, idx) => {
+            const itemKey = `projects-${idx}`;
+            const isCentered = isMobile && centeredItem === itemKey;
+            return (
+              <div
+                key={idx}
+                ref={(el) => {
+                  if (el) itemRefs.current.set(itemKey, el);
+                  else itemRefs.current.delete(itemKey);
+                }}
+                className="inline-block mx-6 max-[768px]:mx-0 text-xl font-normal my-4 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
               >
-                {project.name}
-                {project.subtitle ? ` (${project.subtitle})` : ""}
-              </span>
-              <sup className="align-super text-sm ml-1">
-                {project.year.slice(-4)}
-              </sup>
-            </div>
-          ))}
+                <span
+                  className={`hover:bg-black hover:text-white py-0 cursor-pointer${isCentered ? " bg-black text-white" : ""}`}
+                  onClick={() => handleProjectClick(project)}
+                >
+                  {project.name}
+                  {project.subtitle ? ` (${project.subtitle})` : ""}
+                </span>
+                <sup className="align-super text-sm ml-1">
+                  {project.year.slice(-4)}
+                </sup>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -204,23 +244,31 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <h3 className="italic text-4xl mb-4 text-left">film + tv</h3>
 
         <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
-          {filmProjects.map((project, idx) => (
-            <div
-              key={idx}
-              className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
-            >
-              <span
-                className="hover:text-white hover:bg-black cursor-pointer"
-                onClick={() => handleProjectClick(project)}
+          {filmProjects.map((project, idx) => {
+            const itemKey = `film-${idx}`;
+            const isCentered = isMobile && centeredItem === itemKey;
+            return (
+              <div
+                key={idx}
+                ref={(el) => {
+                  if (el) itemRefs.current.set(itemKey, el);
+                  else itemRefs.current.delete(itemKey);
+                }}
+                className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
               >
-                {project.name}
-                {project.subtitle ? ` (${project.subtitle})` : ""}
-              </span>
-              <sup className="align-super text-sm ml-1">
-                {project.year.slice(-4)}
-              </sup>
-            </div>
-          ))}
+                <span
+                  className={`hover:text-white hover:bg-black cursor-pointer${isCentered ? " bg-black text-white" : ""}`}
+                  onClick={() => handleProjectClick(project)}
+                >
+                  {project.name}
+                  {project.subtitle ? ` (${project.subtitle})` : ""}
+                </span>
+                <sup className="align-super text-sm ml-1">
+                  {project.year.slice(-4)}
+                </sup>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -229,25 +277,33 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <h3 className="italic text-4xl mb-4 text-left">experiments</h3>
 
         <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
-          {experimentProjects.map((project, idx) => (
-            <div
-              key={idx}
-              className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
-            >
-              <span
-                className="hover:text-white hover:bg-black cursor-pointer"
-                onClick={() => handleProjectClick(project)}
+          {experimentProjects.map((project, idx) => {
+            const itemKey = `experiments-${idx}`;
+            const isCentered = isMobile && centeredItem === itemKey;
+            return (
+              <div
+                key={idx}
+                ref={(el) => {
+                  if (el) itemRefs.current.set(itemKey, el);
+                  else itemRefs.current.delete(itemKey);
+                }}
+                className="inline-block mx-4 max-[768px]:mx-0 text-xl font-normal my-2 max-[768px]:my-1 px-1 py-1 max-[768px]:text-left"
               >
-                {project.name}
-                {project.subtitle ? ` (${project.subtitle})` : ""}
-              </span>
-              {project.year ? (
-                <sup className="align-super text-sm ml-1">
-                  {project.year.slice(-4)}
-                </sup>
-              ) : null}
-            </div>
-          ))}
+                <span
+                  className={`hover:text-white hover:bg-black cursor-pointer${isCentered ? " bg-black text-white" : ""}`}
+                  onClick={() => handleProjectClick(project)}
+                >
+                  {project.name}
+                  {project.subtitle ? ` (${project.subtitle})` : ""}
+                </span>
+                {project.year ? (
+                  <sup className="align-super text-sm ml-1">
+                    {project.year.slice(-4)}
+                  </sup>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
