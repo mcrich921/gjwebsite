@@ -1,24 +1,34 @@
 import { useEffect, useMemo, useRef } from "react";
 
 const LOGO_FILE_NAMES: string[] = [
-  "GJ_Client-Logos_Atlantic.png",
-  "GJ_Client-Logos_BSF.png",
-  "GJ_Client-Logos_Corduroy.png",
-  "GJ_Client-Logos_Edits-etc.png",
-  "GJ_Client-Logos_MAN.png",
-  "GJ_Client-Logos_PO.png",
-  "GJ_Client-Logos_Pretend.png",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Atlantic.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_BSF.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Corduroy.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_DOLAN.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Edits-etc.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_MAN.webp",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_PO.webp",
+  // "https://media.gregjoblove.com/logos/GJ_Client-Logos_Pretend.webp",
 ];
 
 // Explicit mapping for logo links (edit these to the real links)
 const LOGO_LINKS: Record<string, string> = {
-  "GJ_Client-Logos_Atlantic.png": "https://atlanticpictures.com/atlantic-vfx",
-  "GJ_Client-Logos_BSF.png": "https://www.youtube.com/@BrightSunFilms",
-  "GJ_Client-Logos_Corduroy.png": "https://corduroy.studio/",
-  "GJ_Client-Logos_Edits-etc.png": "https://www.edits-etc.com/",
-  "GJ_Client-Logos_MAN.png": "https://makeartnow.com/",
-  "GJ_Client-Logos_PO.png": "https://www.publicopinion.nyc/",
-  "GJ_Client-Logos_Pretend.png": "https://pretendvfx.com/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Atlantic.webp":
+    "https://atlanticpictures.com/atlantic-vfx",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_BSF.webp":
+    "https://www.youtube.com/@BrightSunFilms",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Corduroy.webp":
+    "https://corduroy.studio/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Edits-etc.webp":
+    "https://www.edits-etc.com/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_MAN.webp":
+    "https://makeartnow.com/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_PO.webp":
+    "https://www.publicopinion.nyc/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_Pretend.webp":
+    "https://pretendvfx.com/",
+  "https://media.gregjoblove.com/logos/GJ_Client-Logos_DOLAN.webp":
+    "https://dolanproduction.com/",
 };
 
 const LogosCarousel: React.FC = () => {
@@ -30,7 +40,7 @@ const LogosCarousel: React.FC = () => {
   const logos = useMemo(
     () =>
       LOGO_FILE_NAMES.map((name) => ({
-        src: `logos/${name}`,
+        src: name,
         url: LOGO_LINKS[name],
       })),
     [],
