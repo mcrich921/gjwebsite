@@ -32,6 +32,13 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
   const [hideHero, setHideHero] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
   const handleHeroProgress = (progress: number) => {
     setHeroProgress(progress);
@@ -178,13 +185,17 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
           </h1>
           <h2
             className="subtitle"
-            style={{ transform: "translateY(-25px) scale(0.7)" }}
+            style={{
+              transform: `translateY(${isMobile ? -15 : -25}px) scale(0.7)`,
+            }}
           >
             vfx/graphics
           </h2>
           <h2
             className="social-links"
-            style={{ transform: "translateY(-25px) scale(0.7)" }}
+            style={{
+              transform: `translateY(${isMobile ? -15 : -25}px) scale(0.7)`,
+            }}
           >
             <a href="mailto:greg@joblove.com">email</a>
             <a href="https://www.linkedin.com/in/joblove/">linkedin</a>

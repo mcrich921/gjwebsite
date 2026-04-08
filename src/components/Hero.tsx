@@ -107,10 +107,14 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
   // Interpolations
   const titleScale = interpolate(progress, [0, 0.6], [1, 0.7]);
   const subtitleScale = interpolate(progress, [0.2, 0.8], [1, 0.7]);
-  const subtitleTranslateY = interpolate(progress, [0.4, 0.8], [0, -25]);
+  const subtitleTranslateY = interpolate(
+    progress,
+    [0.4, 0.8],
+    [0, isMobile ? -15 : -25],
+  );
 
   const socialTranslateStart = Math.max(0, viewportHeight * 0.6 - 280);
-  const socialTranslateEnd = -25;
+  const socialTranslateEnd = isMobile ? -15 : -25;
   const socialTranslateY = interpolate(
     progress,
     [0.4, 0.8],
