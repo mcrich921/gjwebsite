@@ -234,6 +234,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                       key={media[0].url}
                       className="w-full h-full object-cover"
                       controls={true}
+                      playsInline
                     >
                       <source src={media[0].url} type="video/mp4" />
                       Your browser does not support the video tag.
@@ -356,6 +357,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                       muted
                       loop
                       autoPlay
+                      playsInline
                     >
                       <source src={mediaItem.url} type="video/webm" />
                       Your browser does not support the video tag.

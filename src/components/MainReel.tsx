@@ -65,6 +65,7 @@ const MainReel: React.FC = () => {
               controls
               autoPlay
               muted
+              playsInline
             >
               <source
                 src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}

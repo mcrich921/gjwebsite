@@ -12,7 +12,7 @@ const Reels: React.FC = () => (
         <div className="relative">
           <span className="absolute -top-6 left-1 text-xl font-bold">VFX</span>
           <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
-            <video className="w-full h-full object-cover" controls muted>
+            <video className="w-full h-full object-cover" controls muted playsInline>
               <source
                 src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}
                 type="video/webm"
@@ -26,7 +26,7 @@ const Reels: React.FC = () => (
             MOGRAPH
           </span>
           <div className="aspect-video w-full bg-gray-200 border-2 border-black overflow-hidden">
-            <video className="w-full h-full object-cover" controls muted>
+            <video className="w-full h-full object-cover" controls muted playsInline>
               <source
                 src={`${MEDIA_BASE_URL}/reels/2025_MoGraph_v1.webm`}
                 type="video/webm"

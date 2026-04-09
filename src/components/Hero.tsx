@@ -243,7 +243,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
           }}
         >
           <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-            <video className="w-full h-full object-cover" controls muted>
+            <video className="w-full h-full object-cover" controls muted playsInline>
               <source
                 src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}
                 type="video/webm"

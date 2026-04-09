@@ -209,7 +209,12 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             className="mb-20 max-[768px]:w-[90%] min-[769px]:w-1/2 mx-auto"
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-              <video className="w-full h-full object-cover" controls muted>
+              <video
+                className="w-full h-full object-cover"
+                controls
+                muted
+                playsInline
+              >
                 <source src="/videos/2024_General_v7.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
