@@ -1,5 +1,6 @@
 name,subtitle,shorthand,role,credits,year,media_path,media_feature,visible,category,blurb,tags,media_aspect,cover_media,cover_embed-or-image
-G Train Animation,,,,,2024,"G-Train_Animation.webm,SH04-(62)_AO.webp
+G Train Animation,,,,,2024,"G-Train_Animation_a.webm
+,G-Train_AO.webp
 ",,TRUE,,"I created an animation paying homage to the outgoing fleet of R46 New york City Subway cars while highlighting the use of the Dehancer film emulation plugin in a compositing use case. I animated everything in Blender and composited in Nuke, with some grading in DaVinci Resolve. ","cg animation, comp, blender, nuke",h,image,
 Volvo Spec,,,,,2024,,,TRUE,,"I created an animated spec ad for Volvo's S90 line of plug-in hybrid sedans, focusing on the ability of the electric-hybrid powertrain to provide both power and comfort. I animated and rendered in Blender, and composited in Nuke.","cg animation, cg comp, blender, nuke",,,
 Apple Watch Areodynamics,,,,,2026,,,TRUE,,"A project I knocked out in about a weekend trying to get more familiar with Houdini. Fluid dynamic sim done in houdini, brought into blender for blocking and rendering. Then comped in Nuke and color graded in DaVinci Resolve.","r&d, simulation, houdini, blender, nuke",,,
