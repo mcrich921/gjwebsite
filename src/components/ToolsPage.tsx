@@ -20,7 +20,14 @@ const A: React.FC<{ href: string; children: React.ReactNode }> = ({
 const ToolsPage: React.FC = () => {
   const navigate = useNavigate();
   const [monogramVisible, setMonogramVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const headerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 767);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,14 +45,31 @@ const ToolsPage: React.FC = () => {
       transition={{ duration: 0.4 }}
       className="tools-page min-h-screen"
     >
+      {isMobile && (
+        <motion.div
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="fixed top-0 left-0 w-full md:hidden pointer-events-none z-30"
+          style={{
+            height: "60px",
+            background:
+              "linear-gradient(to bottom, white 50%, transparent 100%)",
+          }}
+        />
+      )}
       <Monogram
-        isVisible={monogramVisible}
+        isVisible={isMobile || monogramVisible}
         isEnabled={true}
         onClick={() => navigate("/")}
       />
 
       {/* Site header */}
-      <div className="homepage-info" ref={headerRef}>
+      <div
+        className="homepage-info"
+        ref={headerRef}
+        style={isMobile ? { display: "none" } : undefined}
+      >
         <h1 className="heading">
           <Link to="/">GREG JOBLOVE</Link>
         </h1>

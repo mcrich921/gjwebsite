@@ -316,6 +316,11 @@
 @media (max-width: 767px) {
   .tools-link::after,
   .tools-link:hover::after {
+    content: " →";
+    opacity: 1;
+  }
+
+  .tools-page .navbar .home-link {
     display: none;
   }
 }
