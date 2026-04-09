@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const LOGO_FILE_NAMES: string[] = [
   "https://media.gregjoblove.com/logos/GJ_Client-Logos_Atlantic.webp",
@@ -10,6 +10,9 @@ const LOGO_FILE_NAMES: string[] = [
   "https://media.gregjoblove.com/logos/GJ_Client-Logos_PO.webp",
   // "https://media.gregjoblove.com/logos/GJ_Client-Logos_Pretend.webp",
 ];
+
+const getLogoName = (url: string) =>
+  url.split("GJ_Client-Logos_")[1]?.replace(".webp", "") ?? url;
 
 // Explicit mapping for logo links (edit these to the real links)
 const LOGO_LINKS: Record<string, string> = {
@@ -36,6 +39,13 @@ const LogosCarousel: React.FC = () => {
   const animationFrameRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
   const speedPxPerSec = 30;
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const logos = useMemo(
     () =>
@@ -44,6 +54,14 @@ const LogosCarousel: React.FC = () => {
         url: LOGO_LINKS[name],
       })),
     [],
+  );
+
+  const sortedLogos = useMemo(
+    () =>
+      [...logos].sort((a, b) =>
+        getLogoName(a.src).localeCompare(getLogoName(b.src)),
+      ),
+    [logos],
   );
 
   useEffect(() => {
@@ -84,6 +102,36 @@ const LogosCarousel: React.FC = () => {
   }, []);
 
   const doubledLogos = useMemo(() => [...logos, ...logos], [logos]);
+
+  if (isMobile) {
+    return (
+      <section className="relative max-w-[90%] px-6 py-8 mx-auto">
+        <h3 className="italic text-4xl mb-6 text-center">
+          frequent collaborators
+        </h3>
+        <div className="flex flex-wrap justify-center gap-8">
+          {sortedLogos.map((logo, idx) => (
+            <a
+              key={idx}
+              href={logo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Client website"
+              className="flex items-center justify-center"
+            >
+              <img
+                src={logo.src}
+                alt="Client logo"
+                className="h-10 object-contain grayscale"
+                loading="lazy"
+                draggable={false}
+              />
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative max-w-[80%] px-6 md:px-10 py-8 mx-auto">

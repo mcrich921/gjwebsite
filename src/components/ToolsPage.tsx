@@ -52,9 +52,9 @@ const ToolsPage: React.FC = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed top-0 left-0 w-full md:hidden pointer-events-none z-30"
           style={{
-            height: "60px",
+            height: "80px",
             background:
-              "linear-gradient(to bottom, white 50%, transparent 100%)",
+              "linear-gradient(to bottom, white 40%, transparent 100%)",
           }}
         />
       )}
