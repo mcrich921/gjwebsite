@@ -236,7 +236,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                       controls={true}
                       playsInline
                     >
-                      <source src={media[0].url} type="video/mp4" />
+                      <source src={media[0].url} type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
