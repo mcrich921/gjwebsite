@@ -178,7 +178,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Projects list */}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] md:mx-auto max-[768px]:ml-1 max-[768px]:max-w-[98%]">
         <h3 className="italic text-4xl mb-4 text-left">projects</h3>
         {/* Category filters */}
         <div className="flex gap-8">
@@ -240,7 +240,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Film + TV Projects list*/}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] md:mx-auto max-[768px]:ml-1 max-[768px]:max-w-[98%]">
         <h3 className="italic text-4xl mb-4 text-left">film + tv</h3>
 
         <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
@@ -273,7 +273,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* Experiments list */}
-      <div className="relative px-4 md:px-10 py-8 max-w-[80%] max-[768px]:max-w-[90%] mx-auto">
+      <div className="relative px-4 md:px-10 py-8 max-w-[80%] md:mx-auto max-[768px]:ml-1 max-[768px]:max-w-[98%]">
         <h3 className="italic text-4xl mb-4 text-left">experiments</h3>
 
         <div className="flex flex-wrap justify-center max-[768px]:flex-col max-[768px]:items-start">
