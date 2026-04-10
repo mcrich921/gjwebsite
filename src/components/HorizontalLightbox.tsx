@@ -180,7 +180,7 @@ const Lightbox: React.FC<LightboxProps> = ({
             >
               <span className="mr-2">←</span>
             </button>
-            <span className="text-lg font-light italic">
+            <span className="text-sm md:text-lg font-light italic">
               {project.shorthand || project.name}
             </span>
             <button
@@ -195,7 +195,7 @@ const Lightbox: React.FC<LightboxProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="text-white text-lg font-light hover:opacity-70 p-0.5 transition-opacity"
+            className="text-white text-sm md:text-lg font-light hover:opacity-70 p-0.5 transition-opacity"
           >
             esc
           </button>
@@ -268,17 +268,17 @@ const Lightbox: React.FC<LightboxProps> = ({
 
             {/* Right Column - Info */}
             <div className="flex flex-col items-start text-left w-full">
-              <h2 className="text-6xl font-normal mb-1 leading-[0.8]">
+              <h2 className="text-4xl md:text-6xl font-normal mb-1 leading-[0.8]">
                 {project.name}
               </h2>
               <div
                 className="flex items-center"
                 style={{ width: "calc(90% + 40px)" }}
               >
-                <p className="text-2xl mb-6 mt-0 leading-tight">
+                <p className="text-xl md:text-2xl mb-6 mt-0 leading-tight">
                   {project.year.slice(-4)}
                 </p>
-                <p className="text-lg font-bold italic mb-6 mt-0 leading-tight ml-auto text-end">
+                <p className="text-base md:text-lg font-bold italic mb-6 mt-0 leading-tight ml-auto text-end">
                   {project.role}
                 </p>
               </div>
@@ -289,7 +289,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                 <div className="absolute left-0 bottom-0 h-5 w-5 border-l border-b border-gray-500 -mb-1"></div>
                 <div className="absolute -right-10 top-0 h-5 w-5 border-r border-t border-gray-500 -mt-1"></div>
                 <div className="absolute -right-10 bottom-0 h-5 w-5 border-r border-b border-gray-500 -mb-1"></div>
-                <div className="flex flex-col text-lg">
+                <div className="flex flex-col text-base md:text-lg">
                   {project.credits.map((credit, index) => (
                     <div key={index} className="flex items-center">
                       <div className="font-bold pr-2">{credit.credit}</div>
@@ -336,7 +336,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                   ))}
               </div>
               {/* Description */}
-              <p className="text-lg leading-relaxed mb-0 text-left">
+              <p className="text-base md:text-lg leading-relaxed mb-0 text-left">
                 {project.blurb ? renderWithLinks(project.blurb) : null}
               </p>
             </div>
