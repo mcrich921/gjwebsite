@@ -15,11 +15,7 @@ const AboutSection: React.FC = () => (
         {/* Main copy */}
         <div className="md:col-span-5">
           <p className="text-xl leading-8 text-left">
-            I am a filmmaker and visual effects artist based in Brooklyn, NY,
-            specializing in compositing, 3D animation, and motion graphics. With
-            a background in cinematography, editing, and photography, I have
-            honed my skills for pushing technology while leveraging classic
-            theory to bring new visuals to life.
+            I am a visual effects artist based in Brooklyn, NY, specializing in compositing, 3D animation, and motion graphics. My background in traditional filmmaking, cinematography, editing, and photography informs everything I create. And a potenitally unhealthy obsession with technical tinkering handles the rest. When I'm not at my desk you can probably catch me wandering somewhere with my camera...
           </p>
 
           <div className="mt-6 text-left">
