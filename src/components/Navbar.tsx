@@ -93,18 +93,18 @@ const Navbar: React.FC<NavbarProps> = ({
         >
           <button
             onClick={() => setMenu(!menuOpen)}
-            className="flex items-center justify-center w-4 h-10"
+            className="flex items-center justify-center p-5 -m-5 cursor-pointer"
             aria-label="Toggle menu"
           >
             <span className="flex flex-col items-center justify-center gap-[8px]">
               <span
-                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+                className={`w-1 h-1 rounded-full block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
               />
               <span
-                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+                className={`w-1 h-1 rounded-full block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
               />
               <span
-                className={`w-1 h-1 block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
+                className={`w-1 h-1 rounded-full block transition-colors duration-200 ${menuOpen ? "bg-white" : "bg-black"}`}
               />
             </span>
           </button>
