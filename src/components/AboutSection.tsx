@@ -121,16 +121,16 @@ const AboutSection: React.FC = () => (
             portfolio from my time at Wesleyan University.
           </a>
         </li>
-        <li>
+        {/* <li>
           <a className="underline" href="/wes" rel="noreferrer">
             a collection with of the Wesleyan student films I've worked on
           </a>
         </li>
-        <li>
+        <li>ad
           <a className="underline" href="/reel" rel="noreferrer">
             cinematography portfolio
           </a>
-        </li>
+        </li> */}
       </ul>
     </div>
     <div className="h-28" />
