@@ -5,6 +5,7 @@ import WebsiteContent from "./components/WebsiteContent";
 import ToolsPage from "./components/ToolsPage";
 import MainReel from "./components/MainReel";
 import NotFound from "./components/NotFound";
+import IdeasPage from "./components/IdeasPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function App() {
         />
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/reel" element={<MainReel />} />
+        <Route path="/ideas" element={<IdeasPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
