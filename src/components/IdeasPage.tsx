@@ -105,15 +105,22 @@ const IdeasPage: React.FC = () => {
         className="navbar ideas-navbar"
         style={isMobile ? { display: "none" } : undefined}
       >
-        <Link to="/" className="tools-link">
-          home
-        </Link>
+
       </nav>
 
       <div className="portfolio-body">
         <div className="portfolio-title-section">
-          <h1 className="portfolio-main-title">IDEAS portfolio</h1>
+          <h1 className="portfolio-main-title" >IDEAS portfolio</h1>
         </div>
+
+        <div className="course-entry" style={{ maxWidth: "700px", margin: "0 auto", paddingBottom: "80px"}}>
+            <h3 className="entry-header">IDEAS @ Wesleyan</h3>
+            <p className="entry-body">
+             The IDEAS (Integrated Design, Engineering, Arts & Society) minor is an interdisciplinary program at Wesleyan University within the College of Design and Engineering Studies (CoDES). It builds a foundation in design and engineering fundamentals and allows for a study concentration in a specific area of interest. My concentration was in computer science, where I explored the use of computer programming and complex software for the purpose of creating art. See some selections of my work in various classes below. And learn more about IDEAS at Wes <a href="https://www.wesleyan.edu/academics/departments/college-design-engineering-studies/programs-of-study/ideas-major.html" target="_blank" style={{ textDecoration: "underline" }}>here</a>.
+            </p>
+           
+            
+          </div>
 
         <div className="toc-section">
           <h2 className="toc-heading">table of contents</h2>

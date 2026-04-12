@@ -212,10 +212,9 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
               <video
                 className="w-full h-full object-cover"
                 controls
-                muted
                 playsInline
               >
-                <source src="/videos/2024_General_v7.webm" type="video/webm" />
+                <source src="https://media.gregjoblove.com/reels/2026_Short_General_v1.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             </div>
