@@ -268,7 +268,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
             {/* Right Column - Info */}
             <div className="flex flex-col items-start text-left w-full">
-              <h2 className="text-4xl md:text-6xl font-normal mb-1 leading-[0.8]">
+              <h2 className="text-4xl md:text-6xl font-normal mb-4 leading-[0.8]">
                 {project.name}
               </h2>
               <div
