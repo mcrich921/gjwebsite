@@ -8,14 +8,19 @@ const AboutSection: React.FC = () => (
     <div className="mx-auto w-full max-w-[80%] px-6 md:px-10">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
         {/* Left image placeholder */}
-        <div className="md:col-span-4">
+        {/* <div className="md:col-span-4">
           <div className="w-full aspect-[3/4] bg-gray-200 border-2 border-black shadow-md" />
-        </div>
+        </div> */}
 
         {/* Main copy */}
-        <div className="md:col-span-5">
+        <div className="md:col-span-8">
           <p className="text-xl leading-8 text-left">
-            I am a visual effects artist based in Brooklyn, NY, specializing in compositing, 3D animation, and motion graphics. My background in traditional filmmaking, cinematography, editing, and photography informs everything I create. And a potenitally unhealthy obsession with technical tinkering handles the rest. When I'm not at my desk you can probably catch me wandering somewhere with my camera...
+            I am a visual effects artist based in Brooklyn, NY, specializing in
+            compositing, 3D animation, and motion graphics. My background in
+            traditional filmmaking, cinematography, editing, and photography
+            informs everything I create. And a potenitally unhealthy obsession
+            with technical tinkering handles the rest. When I'm not at my desk
+            you can probably catch me wandering somewhere with my camera...
           </p>
 
           <div className="mt-6 text-left">
@@ -79,7 +84,7 @@ const AboutSection: React.FC = () => (
         </div>
 
         {/* What I Do box */}
-        <div className="md:col-span-3">
+        <div className="md:col-span-3" style={{ minWidth: "10rem" }}>
           <div className="border-2 border-black">
             <div className="border-b-2 border-black px-4 py-2 text-xl font-bold italic">
               WHAT I DO
@@ -106,12 +111,14 @@ const AboutSection: React.FC = () => (
       <ul className="space-y-2">
         <li>
           <a className="underline" href="/tools" rel="noreferrer">
-            a tools page with useful resources for students, beginners, and people looking for high quality assets
+            a tools page with useful resources for students, beginners, and
+            people looking for high quality assets
           </a>
         </li>
         <li>
           <a className="underline" href="/ideas" rel="noreferrer">
-            my I.D.E.A.S. (integrated design, engineering, arts, and scienceses) portfolio from my time at Wesleyan University.
+            my I.D.E.A.S. (integrated design, engineering, arts, and scienceses)
+            portfolio from my time at Wesleyan University.
           </a>
         </li>
         <li>
