@@ -54,6 +54,12 @@
   animation: scroll-bounce 2s ease-in-out infinite;
 }
 
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 6rem;
+  }
+}
+
 @keyframes scroll-bounce {
   0%,
   100% {
