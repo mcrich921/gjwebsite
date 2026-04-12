@@ -185,7 +185,7 @@ const Navbar: React.FC<NavbarProps> = ({
           variants={navVariants}
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
-          className="fixed top-10 right-16 z-40"
+          className="fixed top-10 right-8 z-40"
         >
           <ul className="flex flex-col space-y-3 text-left">
             {navItems.map((item) => (
