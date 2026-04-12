@@ -99,7 +99,7 @@ const LogosCarousel: React.FC = () => {
       window.removeEventListener("resize", handleResize);
       lastTsRef.current = null;
     };
-  }, []);
+  }, [isMobile]);
 
   const doubledLogos = useMemo(() => [...logos, ...logos], [logos]);
 
