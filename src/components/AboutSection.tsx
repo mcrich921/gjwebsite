@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const AboutSection: React.FC = () => (
   <div id="about">
@@ -116,16 +117,16 @@ const AboutSection: React.FC = () => (
       </div> */}
       <ul className="space-y-2">
         <li>
-          <a className="underline" href="/tools" rel="noreferrer">
+          <Link className="underline" to="/tools">
             a tools page with useful resources for students, beginners, and
             people looking for high quality assets
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="underline" href="/ideas" rel="noreferrer">
+          <Link className="underline" to="/ideas">
             my I.D.E.A.S. (integrated design, engineering, arts, and scienceses)
             portfolio from my time at Wesleyan University.
-          </a>
+          </Link>
         </li>
         {/* <li>
           <a className="underline" href="/wes" rel="noreferrer">
