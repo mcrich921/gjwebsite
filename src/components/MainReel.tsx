@@ -60,13 +60,7 @@ const MainReel: React.FC = () => {
           }}
         >
           <div className="aspect-video w-full bg-gray-900 border-2 border-black overflow-hidden">
-            <video
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              muted
-              playsInline
-            >
+            <video className="w-full h-full object-cover" controls autoPlay>
               <source
                 src={`${MEDIA_BASE_URL}/reels/2024_General_v7.webm`}
                 type="video/webm"
