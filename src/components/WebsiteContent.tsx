@@ -209,11 +209,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             className="mb-20 max-[768px]:w-[90%] min-[769px]:w-1/2 mx-auto"
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                playsInline
-              >
+              <video className="w-full h-full object-cover" controls>
                 <source
                   src="https://media.gregjoblove.com/reels/2026_Short_General_v1.webm"
                   type="video/webm"
