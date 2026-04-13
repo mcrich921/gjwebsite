@@ -1,29 +1,36 @@
-name,subtitle,shorthand,role,credits,year,media_path,media_feature,visible,category,blurb,tags,media_aspect,link_feature,link
+name,subtitle,shorthand,role,credits,year,media_path,media_feature,visible,category,blurb,tags,media_aspect,link_feature,link,gallery_columns
 The Whisper Man,Netflix,whisper,JUNIOR COMPOSITOR,"Studio, Phosphene FX[https://www.phosphenefx.com/];
 Client, Netflix;
-Director, James Ashcroft;",1/1/2026,,FALSE,FALSE,VFX,,,,FALSE,
+Director, James Ashcroft;",1/1/2026,,FALSE,FALSE,VFX,,,,FALSE,,2
 Is This Thing On?,Searchlight,itto,JUNIOR COMPOSITOR,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-Director,Bradley Cooper;",12/19/2025,is-this-thing-on-poster.webp,FALSE,TRUE,VFX,Responsible for a variety of screen comps and other invisible VFX.,,,FALSE,
+Director,Bradley Cooper;",12/19/2025,is-this-thing-on-poster.webp,FALSE,TRUE,VFX,Responsible for a variety of screen comps and other invisible VFX.,,,FALSE,,2
 The Gilded Age S3,HBO,gilded,JUNIOR COMPOSITOR,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-",6/22/2025,gilded-poster.webp,FALSE,TRUE,VFX,Beauty and makeup touch-ups.,,,FALSE,
+",6/22/2025,gilded-poster.webp,FALSE,TRUE,VFX,Beauty and makeup touch-ups.,,,FALSE,,2
 Babygirl,A24,babygirl,JUNIOR COMPOSITOR,"Studio, Phosphene FX[https://www.phosphenefx.com/];
 Client, A24;
-Director, Halina Reijn;",12/25/2024,"babygirl-poster.webp, projects_BabyGirl_Reel.webm",FALSE,TRUE,VFX,"Working at Phosphene, I completed a number of invisible VFX shots for Babygirl. Reflection paint outs, beauty work, set augmentation, grip equipment removal, etc.","reflection removal, cleanup",v,FALSE,https://a24films.com/films/babygirl
+Director, Halina Reijn;",12/25/2024,"babygirl-poster.webp, projects_BabyGirl_Reel.webm",FALSE,TRUE,VFX,"Working at Phosphene, I completed a number of invisible VFX shots for Babygirl. Reflection paint outs, beauty work, set augmentation, grip equipment removal, etc.","reflection removal, cleanup",v,FALSE,https://a24films.com/films/babygirl,2
 Diarra from Detroit,BET+,diarra,COMPOSITOR,"Studio,Atlantic VFX[https://atlanticpictures.com/];
 Client,BET+;
-Director,Diarra Kilpatrick",3/21/2024,diarra-poster.webp,FALSE,TRUE,VFX,"Working at Atlantic Pictures, I completed miscellaneous VFX tasks screen comps, environment augmentation, and UI elements.","screen replacement, envrionment augmentation, cleanup, UI elements",v,FALSE,
+Director,Diarra Kilpatrick",3/21/2024,diarra-poster.webp,FALSE,TRUE,VFX,"Working at Atlantic Pictures, I completed miscellaneous VFX tasks screen comps, environment augmentation, and UI elements.","screen replacement, envrionment augmentation, cleanup, UI elements",v,FALSE,,2
 Daredevil: Born Again S1,Marvel,daredevil,INTERN,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-Client, Marvel;",3/21/2024,daredevil-poster.webp,FALSE,TRUE,VFX,"Working at Phosphene, I worked on and shadowed a number of small compositing tasks for the project: screen replacements, paint-outs, CG comps, and invisible VFX.",,v,FALSE,
-,,,,,,,,TRUE,VFX,,,,,
+Client, Marvel;",3/21/2024,daredevil-poster.webp,FALSE,TRUE,VFX,"Working at Phosphene, I worked on and shadowed a number of small compositing tasks for the project: screen replacements, paint-outs, CG comps, and invisible VFX.",,v,FALSE,,2
+,,,,,,,,TRUE,VFX,,,,,,2
 P-Valley,Starz,p-valley,JUNIOR COMP ARTIST,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-",,p-valley-tv-series-poster.webp,,FALSE,VFX,Some minor practical effect enhancement.,,,,
+",,p-valley-tv-series-poster.webp,,FALSE,VFX,Some minor practical effect enhancement.,,,,,2
 The Savant,Apple TV+,savant,JUNIOR COMP ARTIST,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-",,the-savant.webp,,FALSE,VFX,Invisible VFX including split screen comps and reflection removal.,,,,
+",,the-savant.webp,,FALSE,VFX,Invisible VFX including split screen comps and reflection removal.,,,,,2
 Task,HBO,task,JUNIOR COMP ARTIST,"Studio, Phosphene FX[https://www.phosphenefx.com/];
-",9/7/2025,task-poster.webp,,TRUE,VFX,"Screen comps, reflection removal, and other invisible VFX.",,,,
+",9/7/2025,task-poster.webp,,TRUE,VFX,"Screen comps, reflection removal, and other invisible VFX.",,,,,2
 Karate Kids: Legends,Columbia,karate,VFX UNIT DATA WRANGLER,"Studio,Atlantic VFX[https://atlanticpictures.com/];
-",5/30/2025,karate-kid-poster.webp,,TRUE,VFX,On-set data wrangler for the VFX unit responsible for capturing NYC rooftop plates to be comped behind actors for rooftop scenes.,,,,
+",5/30/2025,karate-kid-poster.webp,,TRUE,VFX,On-set data wrangler for the VFX unit responsible for capturing NYC rooftop plates to be comped behind actors for rooftop scenes.,,,,,2
 Play Dirty,Amazon Studios,dirty,PREVIS ANIMATOR,"Studio,Atlantic VFX[https://atlanticpictures.com/];
-",,play-dirty.webp,,,VFX,,,,,
+",,play-dirty.webp,,,VFX,,,,,,2
 Wishful Thinking,,wishful thinking,COMPOSITOR,"Studio, Corduroy FX[https://www.corduroy.studio/];
-Director, Graham Parkes;",3/5/2026,wishful-thinking.webp,,TRUE,VFX,"Worked on one sequence in particular, buidling out a sunrise scene comped onto a night time plate.",,,,
+Director, Graham Parkes;",3/5/2026,wishful-thinking.webp,,TRUE,VFX,"Worked on one sequence in particular, buidling out a sunrise scene comped onto a night time plate.",,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2
+,,,,,,,,,,,,,,,2

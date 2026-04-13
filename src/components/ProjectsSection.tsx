@@ -114,7 +114,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     if (passedExperimentProjects && passedExperimentProjects.length > 0) {
       setExperimentProjects(passedExperimentProjects);
     } else {
-      parseProjects("/experiments.csv", "experiments")
+      parseProjects("/gjexperiments.csv", "experiments")
         .then((data) => {
           setExperimentProjects(data);
         })

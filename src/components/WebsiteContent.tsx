@@ -64,7 +64,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/experiments.csv", "experiments")
+    parseProjects("/gjexperiments.csv", "experiments")
       .then((data) => {
         setExperimentProjects(data);
       })
@@ -214,7 +214,10 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
                 controls
                 playsInline
               >
-                <source src="https://media.gregjoblove.com/reels/2026_Short_General_v1.webm" type="video/webm" />
+                <source
+                  src="https://media.gregjoblove.com/reels/2026_Short_General_v1.webm"
+                  type="video/webm"
+                />
                 Your browser does not support the video tag.
               </video>
             </div>
