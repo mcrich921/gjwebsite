@@ -8,20 +8,25 @@ const AboutSection: React.FC = () => (
     <div className="mx-auto w-full max-w-[80%] px-6 md:px-10">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
         {/* Left image placeholder */}
-        {/* <div className="md:col-span-4">
-          <div className="w-full aspect-[3/4] bg-gray-200 border-2 border-black shadow-md" />
-        </div> */}
+        <div className="md:col-span-4">
+          <div className="w-full aspect-[3/4] border-2 border-black shadow-md overflow-hidden">
+            <img
+              src="https://media.gregjoblove.com/images/Greg_Img_01.webp"
+              alt="Greg Joblove"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
         {/* Main copy */}
-        <div className="md:col-span-8">
+        <div className="md:col-span-4">
           <p className="text-xl leading-8 text-left">
-          I am a visual effects artist based in Brooklyn, NY, specializing in
-           compositing, 3D animation, and motion graphics. My background in
-           traditional filmmaking, cinematography, editing, and photography
-           informs everything I create. (And a potentially unhealthy obsession
-           with technical tinkering handles the rest.) When I'm not at my desk
-           you can probably catch me wandering somewhere with my camera...
-
+            I am a visual effects artist based in Brooklyn, NY, specializing in
+            compositing, 3D animation, and motion graphics. My background in
+            traditional filmmaking, cinematography, editing, and photography
+            informs everything I create. (And a potentially unhealthy obsession
+            with technical tinkering handles the rest.) When I'm not at my desk
+            you can probably catch me wandering somewhere with my camera...
           </p>
 
           <div className="mt-6 text-left">
