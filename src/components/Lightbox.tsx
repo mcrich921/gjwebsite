@@ -337,9 +337,11 @@ const Lightbox: React.FC<LightboxProps> = ({
             </div>
           </div>
 
-          {/* Additional media section, full width, 2 columns */}
+          {/* Additional media section, full width, dynamic columns */}
           {media.length > 1 && (
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              className={`mt-10 grid gap-6 ${project.galleryCols === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}
+            >
               {media.slice(1).map((mediaItem, index) => (
                 <div
                   key={mediaItem.url}

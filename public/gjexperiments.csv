@@ -1,4 +1,4 @@
-name,subtitle,shorthand,role,credits,year,media_path,media_feature,visible,category,blurb,tags,media_aspect,cover_media,cover_embed-or-image,link,gallery_cols
+name,subtitle,shorthand,role,credits,year,media_path,media_feature,visible,category,blurb,tags,media_aspect,cover_media,cover_embed-or-image,link,gallery_columns
 G Train Animation,,,,,2024,"G-Train_Animation_a.webm
 ,G-Train_AO.webp
 ",,TRUE,,"I created an animation paying homage to the outgoing fleet of R46 New york City Subway cars while highlighting the use of the Dehancer film emulation plugin in a compositing use case. I animated everything in Blender and composited in Nuke, with some grading in DaVinci Resolve. ","cg animation, comp, blender, nuke",h,image,,,2

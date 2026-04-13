@@ -18,6 +18,7 @@ export interface Project {
   link: string;
   coverMedia: "embed" | "image";
   coverEmbedOrImage: string;
+  galleryCols: number;
 }
 
 export async function parseProjects(
@@ -78,6 +79,9 @@ export async function parseProjects(
                 (row["cover_embed-or-image"] as string) ||
                 (row.cover_embed_or_image as string) ||
                 "",
+              galleryCols: row.gallery_columns
+                ? parseInt(row.gallery_columns, 10)
+                : 2,
             }))
             .filter((project) => project.visible && project.name !== "");
           resolve(projects);
