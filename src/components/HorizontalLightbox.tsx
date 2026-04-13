@@ -45,8 +45,6 @@ const Lightbox: React.FC<LightboxProps> = ({
     onNavigate(allProjects[newIndex]);
   };
 
-  console.log(project.mediaPaths, project.galleryCols);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -241,6 +239,20 @@ const Lightbox: React.FC<LightboxProps> = ({
                       <source src={media[0].url} type="video/webm" />
                       Your browser does not support the video tag.
                     </video>
+                  ) : project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full h-full"
+                    >
+                      <img
+                        key={media[0].url}
+                        src={media[0].url}
+                        alt={project.name}
+                        className="w-full h-full object-cover cursor-pointer"
+                      />
+                    </a>
                   ) : (
                     <img
                       key={media[0].url}
