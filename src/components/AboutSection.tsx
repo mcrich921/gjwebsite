@@ -12,7 +12,7 @@ const AboutSection: React.FC = () => (
         <div className="md:col-span-4">
           <div className="w-full aspect-[3/4] border-2 border-black shadow-md overflow-hidden">
             <img
-              src="https://media.gregjoblove.com/images/Greg_Img_01.webp"
+              src="https://media.gregjoblove.com/images/Greg_Img_02.webp"
               alt="Greg Joblove"
               className="w-full h-full object-cover"
             />
