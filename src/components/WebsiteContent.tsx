@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Lightbox from "./Lightbox";
 import HorizontalLightbox from "./HorizontalLightbox";
@@ -40,13 +40,43 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
     return () => window.removeEventListener("resize", update);
   }, []);
   const titleContainerRef = useRef<HTMLDivElement | null>(null);
+  const heroReelRef = useRef<HTMLVideoElement>(null);
+  const contentReelRef = useRef<HTMLVideoElement>(null);
+
+  // Sync reel video state when transitioning between hero and content views
+  useLayoutEffect(() => {
+    const heroVideo = heroReelRef.current;
+    const contentVideo = contentReelRef.current;
+    if (!heroVideo || !contentVideo) return;
+
+    if (hideHero) {
+      // Hero reel becoming hidden, content reel becoming visible
+      contentVideo.currentTime = heroVideo.currentTime;
+      if (heroVideo.paused) {
+        contentVideo.pause();
+      } else {
+        contentVideo.play().catch(() => {});
+      }
+      heroVideo.pause();
+    } else {
+      // Content reel becoming hidden, hero reel becoming visible
+      heroVideo.currentTime = contentVideo.currentTime;
+      if (contentVideo.paused) {
+        heroVideo.pause();
+      } else {
+        heroVideo.play().catch(() => {});
+      }
+      contentVideo.pause();
+    }
+  }, [hideHero]);
+
   const handleHeroProgress = (progress: number) => {
     setHeroProgress(progress);
     setHideHero(progress >= 1);
   };
   // Fetch all projects on component mount
   useEffect(() => {
-    parseProjects("/gjprojects.csv", "projects")
+    parseProjects("/gjwebsite/gjprojects.csv", "projects")
       .then((data) => {
         setProjects(data);
       })
@@ -55,7 +85,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/gjfilm+tv.csv", "film+tv")
+    parseProjects("/gjwebsite/gjfilm+tv.csv", "film+tv")
       .then((data) => {
         setFilmProjects(data);
       })
@@ -64,7 +94,7 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
       });
   }, []);
   useEffect(() => {
-    parseProjects("/gjexperiments.csv", "experiments")
+    parseProjects("/gjwebsite/gjexperiments.csv", "experiments")
       .then((data) => {
         setExperimentProjects(data);
       })
@@ -161,7 +191,11 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
         })()}
 
       {/* Hero Section */}
-      <Hero shouldHide={hideHero} onProgress={handleHeroProgress} />
+      <Hero
+        shouldHide={hideHero}
+        onProgress={handleHeroProgress}
+        reelRef={heroReelRef}
+      />
 
       {/* Main content container */}
       <motion.div
@@ -209,7 +243,11 @@ const WebsiteContent: React.FC<WebsiteContentProps> = ({ isVisible }) => {
             className="mb-20 max-[768px]:w-[90%] min-[769px]:w-1/2 mx-auto"
           >
             <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-              <video className="w-full h-full object-cover" controls>
+              <video
+                ref={contentReelRef}
+                className="w-full h-full object-cover"
+                controls
+              >
                 <source
                   src="https://media.gregjoblove.com/reels/2026_Short_General_v1.webm"
                   type="video/webm"

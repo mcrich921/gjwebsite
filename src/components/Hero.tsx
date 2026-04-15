@@ -17,9 +17,14 @@ const interpolate = (
 interface HeroProps {
   shouldHide?: boolean;
   onProgress?: (progress: number) => void;
+  reelRef?: React.RefObject<HTMLVideoElement | null>;
 }
 
-const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
+const Hero: React.FC<HeroProps> = ({
+  shouldHide = false,
+  onProgress,
+  reelRef,
+}) => {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -243,7 +248,11 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
           }}
         >
           <div className="relative aspect-video w-full bg-gray-900 border-3 overflow-hidden mx-auto">
-            <video className="w-full h-full object-cover" controls>
+            <video
+              ref={reelRef}
+              className="w-full h-full object-cover"
+              controls
+            >
               <source
                 src={`${MEDIA_BASE_URL}/reels/2026_Short_General_v1.webm`}
                 type="video/webm"
@@ -251,7 +260,7 @@ const Hero: React.FC<HeroProps> = ({ shouldHide = false, onProgress }) => {
               Your browser does not support the video tag.
             </video>
           </div>
-          <h2 className="text-lg font-bold text-left ml-2">2025 REEL</h2>
+          <h2 className="text-lg font-bold text-left ml-2">2026 REEL</h2>
         </div>
       </div>
       <div style={{ height: spacerHeight }} aria-hidden="true" />
